@@ -17,8 +17,17 @@ const Box = styled.div`
     border-style: solid;
     box-sizing: border-box;
     flex-grow: 1;
-    ${props => props.body && css`
+    ${props => props.type == 'player' && css`
         background: lightgreen;
+    `}
+    ${props => props.type == 'wall' && css`
+        background: black;
+    `}
+    ${props => props.type == 'goal' && css`
+        background: gold;
+    `}
+    ${props => props.type == 'timesTwo' && css`
+        background: red;
     `}
 `;
 
@@ -27,8 +36,7 @@ const Baris = styled.div`
     flex-grow: 1;
 `
 
-export default function CreateGrid({player}){
-    const length = 10;
+export default function CreateGrid({player, length, walls, goal, timesTwo}){
     const [boxes, setBoxes] = useState([]);
     useEffect(() => {
         let nextId = 0;
@@ -37,8 +45,17 @@ export default function CreateGrid({player}){
             newBoxes[i] = [];
             for(let j = 1 ; j <= length ; j++){
                 let now = {koorX: j, koorY: i};
-                if(player.koorX === now.koorX && player.koorY === now.koorY){
-                    newBoxes[i].push({type: 'body', id:{nextId}});
+                if(player.position.koorX === now.koorX && player.position.koorY === now.koorY){
+                    newBoxes[i].push({type: 'player', id:{nextId}});
+                }
+                else if(walls.find(wall => wall.koorX === now.koorX && wall.koorY === now.koorY)){
+                    newBoxes[i].push({type: 'wall', id:{nextId}});
+                }
+                else if(goal.koorX === now.koorX && goal.koorY === now.koorY){
+                    newBoxes[i].push({type: 'goal', id:{nextId}});
+                }
+                else if(timesTwo.find(twotimes => twotimes.koorX === now.koorX && twotimes.koorY === now.koorY)){
+                    newBoxes[i].push({type: 'timesTwo', id:{nextId}});
                 }
                 else newBoxes[i].push({type: 'empty', id:{nextId}});
                 nextId++;
@@ -55,11 +72,8 @@ export default function CreateGrid({player}){
                         {
                             row.map(box => {
                                 return(
-                                    box.type === 'empty' ? (
-                                        <Box key={box.id} />
-                                    ): (
-                                    <Box  key={box.id} body />
-                                ))
+                                    <Box key={box.id} type={box.type}></Box>
+                                )
                             })
                         }
                         </Baris>
