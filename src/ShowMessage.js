@@ -1,8 +1,8 @@
 export default function ShowMessage({player}){
-    let upStep = `up: ${player.stepRemaining.upStep}`;
-    let downStep = `down: ${player.stepRemaining.downStep}`;
-    let rightStep = `right: ${player.stepRemaining.rightStep}`;
-    let leftStep = `left: ${player.stepRemaining.leftStep}`;
+    let upStep = `(press w) up: ${player.stepRemaining.upStep}`;
+    let downStep = `(press s) down: ${player.stepRemaining.downStep}`;
+    let rightStep = `(press d) right: ${player.stepRemaining.rightStep}`;
+    let leftStep = `(press a) left: ${player.stepRemaining.leftStep}`;
     return(
         <div>
             {upStep}
