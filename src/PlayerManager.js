@@ -2,7 +2,7 @@ export default function PlayerManager(player, action){
     switch (action.type){
         case 'movePlayer': {
             const playerCopy = {...player};
-            const range = playerCopy.stepRange/2;
+            const range = playerCopy.stepRange;
             switch(action.direction){
                 case 'left': {
                     playerCopy.position.koorX -= range;
