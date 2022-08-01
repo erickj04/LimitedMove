@@ -7,9 +7,9 @@ export default function ShowMessage({player}){
         <div>
             {upStep}
             <br></br>
-            {downStep}
-            <br></br>
             {rightStep}
+            <br></br>
+            {downStep}
             <br></br>
             {leftStep}
             <br></br>
@@ -19,6 +19,8 @@ export default function ShowMessage({player}){
             Gold Box: Your Goal
             <br></br>
             Red Box: Will Activate Super Jump (Doubles Your Step Range)
+            <br></br>
+            Blue Box: Will Switch All The Remaining Move Clockwise
             <br></br>
             <br></br>
         </div>

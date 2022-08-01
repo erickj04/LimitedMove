@@ -1,4 +1,26 @@
 export const levels = [
+      {
+        initialBody: {
+            position: {koorX: 1, koorY: 5},
+            stepRange: 1,
+            stepRemaining: {leftStep: 0, rightStep: 0, upStep: 11, downStep: 0}
+        },
+        walls: [
+          {koorX: 3, koorY: 3},
+          {koorX: 1, koorY: 1}
+        ],
+        goal: {koorX: 2, koorY: 3},
+        length: 5,
+        superJump: [
+
+        ],
+        switchClockwise: [
+          {koorX: 1, koorY: 2},
+          {koorX: 4, koorY: 2},
+          {koorX: 4, koorY: 4},
+          {koorX: 2, koorY: 4},
+        ],
+    },
     {
         initialBody: {
             position: {koorX: 5, koorY: 5},
@@ -38,22 +60,9 @@ export const levels = [
         length: 10,
         superJump: [
           {koorX: 4, koorY: 4}
-        ]
-    },
-    {
-        initialBody: {
-            position: {koorX: 1, koorY: 5},
-            stepRange: 1,
-            stepRemaining: {leftStep: 0, rightStep: 10, upStep: 0, downStep: 0}
-        },
-        walls: [
-          {koorX: 3, koorY: 3},
-          {koorX: 1, koorY: 1}
         ],
-        goal: {koorX: 2, koorY: 3},
-        length: 5,
-        superJump: [
-
-        ]
-    }
+        switchClockwise: [
+          
+        ],
+    },
 ]

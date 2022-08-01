@@ -30,6 +30,19 @@ export default function PlayerManager(player, action){
                 stepRange: 2
             }
         }
+        case 'switchClockwise': {
+            console.log('yay');
+            return {
+                ...player,
+                stepRemaining: {
+                    ...player.stepRemaining,
+                    upStep: player.stepRemaining.leftStep,
+                    rightStep: player.stepRemaining.upStep,
+                    downStep: player.stepRemaining.rightStep,
+                    leftStep: player.stepRemaining.downStep,
+                }
+            }
+        }
         case 'reset': {
             return {...action.initialBody};
         }

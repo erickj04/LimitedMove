@@ -13,7 +13,7 @@ export default function App() {
   const goal = levels[currentLevel].goal;
   const length = levels[currentLevel].length;
   const superJump = levels[currentLevel].superJump;
-
+  const switchClockwise = levels[currentLevel].switchClockwise;
   const [player, dispatch] = useReducer(
     PlayerManager,
     {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
@@ -32,7 +32,9 @@ export default function App() {
     }
     return false
   }
-
+  function isSwitchClockwise({nextPlace}){
+    return switchClockwise.find(clockwise => clockwise.koorX === nextPlace.koorX && clockwise.koorY === nextPlace.koorY);
+  }
   function moveDirection(e){
     if(e.key === 'a' || e.key === 'd' || e.key === 'w' || e.key === 's'){
       let direction = 'null';
@@ -74,11 +76,8 @@ export default function App() {
           type: 'movePlayer',
           direction: direction
         });
-        if(isSuperJump({nextPlace})){
-          dispatch({
-            type: 'superJump'
-          })
-        }
+        if(isSuperJump({nextPlace}))dispatch({type: 'superJump'})
+        if(isSwitchClockwise({nextPlace}))dispatch({type: 'switchClockwise'})
       }
     }
   }
@@ -102,7 +101,7 @@ export default function App() {
 
   return (
     <div>
-        {createGrid({player, length, walls, goal, superJump})}
+        {createGrid({player, length, walls, goal, superJump, switchClockwise})}
         {ShowMessage({player})}
         <button onClick={handleClickReset}> reset </button>
     </div>
