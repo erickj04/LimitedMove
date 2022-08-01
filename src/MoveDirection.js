@@ -1,3 +1,6 @@
+// filename should be utils?
+// PascalCase cuma dipake kalo dia mainnya Component, dan ditulis dalam Noun
+// kalo utils atau helper functions pakenya camelCase
 function isPossible({nextPlace, can, walls, length}){
 if(walls.find(wall => wall.koorX === nextPlace.koorX && wall.koorY === nextPlace.koorY))can = false;
     return nextPlace.koorX > 0 && nextPlace.koorX  <= length && nextPlace.koorY > 0 && nextPlace.koorY <= length && can;

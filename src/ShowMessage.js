@@ -1,3 +1,4 @@
+// Message (Noun) should be more accurate
 export default function ShowMessage({player}){
     let upStep = `(press w) up: ${player.stepRemaining.upStep}`;
     let downStep = `(press s) down: ${player.stepRemaining.downStep}`;
@@ -6,6 +7,9 @@ export default function ShowMessage({player}){
     return(
         <div>
             {upStep}
+            {/* 1) component kosong biasa ditulisnya <br /> */}
+            {/* 2) gimana kalo ditulis penuh disini instead pake variable diatas ya? instead of {rightStep} prefer kayak (press d) right: ${player.stepRemaining.rightStep}*/}
+            {/* Agak ga konsisten sebagian jadi variabel sebagian jadi html */}
             <br></br>
             {rightStep}
             <br></br>

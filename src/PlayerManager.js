@@ -1,3 +1,4 @@
+// reducePlayer? PlayerManager itu Noun sedangkan dia melakukan logic here, should use verb as function name here
 export default function PlayerManager(player, action){
     switch (action.type){
         case 'movePlayer': {

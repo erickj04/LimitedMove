@@ -1,5 +1,6 @@
 export const levels = [
       {
+        // I guess initialPlayerConfig is a better naming?
         initialBody: {
             position: {koorX: 1, koorY: 5},
             stepRange: 1,
