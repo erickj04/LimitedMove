@@ -103,7 +103,7 @@ export default function App() {
     <div>
         {createGrid({player, length, walls, goal, superJump, switchClockwise})}
         {ShowMessage({player})}
-        <button onClick={handleClickReset}> reset </button>
+        <button onClick={handleClickReset}> RESET </button>
     </div>
   );
 }
