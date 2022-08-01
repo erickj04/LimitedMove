@@ -12,6 +12,12 @@ const Container = styled.div`
     height: 50vw;
 `
 
+// keknya lebih bagus dibikin terpisah, kek
+// const PlayerBox = styled(Box)`
+//   background: green;
+// `;
+// and so on
+// terus bisa bikin component lain / utils function yang ngurus if conditionnya
 const Box = styled.div`
     border-color: black;
     border-style: solid;
@@ -34,14 +40,17 @@ const Box = styled.div`
     `}
 `;
 
+// btw mungkin bisa consider pake prettier (https://prettier.io/) buat autoformatter jadi consistent, ini ada yang belakangnya pake ; ada yang engga
 const Baris = styled.div`
     display: flex;
     flex-grow: 1;
 `
 
+// Ini namanya functional component, dia itu Component bukan action, jadi namingnya mestinya Noun, kek Grid gitu
 export default function CreateGrid({player, length, walls, goal, superJump, switchClockwise}){
     const [boxes, setBoxes] = useState([]);
     useEffect(() => {
+        // ini berarti tiap player movement dia dibikin semua baru? kayaknya agak kurang efisien deh, mungkin pake ide separated component di atas (yang aku tulis di Box) jadi dia self rerendernya kalo diperlukan aja
         let nextId = 0;
         const newBoxes = [];
         for(let i = 1 ; i <= length ; i++){
@@ -72,6 +81,7 @@ export default function CreateGrid({player, length, walls, goal, superJump, swit
     return(
         <Container>
             {
+                // kalo one liner prefer langsung a.map(elem => <div>{elem}</div>) gitu instead pake return lagi
                 boxes.map((row, i)=> {
                     return(
                         <Baris key={i} >
