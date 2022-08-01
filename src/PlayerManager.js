@@ -3,22 +3,23 @@ export default function PlayerManager(player, action){
         case 'movePlayer': {
             const playerCopy = {...player};
             const range = playerCopy.stepRange;
+            const reduce = 1;
             switch(action.direction){
                 case 'left': {
                     playerCopy.position.koorX -= range;
-                    playerCopy.stepRemaining.leftStep -= 0.5;
+                    playerCopy.stepRemaining.leftStep -= reduce;
                 }; break;
                 case 'right': {
                     playerCopy.position.koorX += range;
-                    playerCopy.stepRemaining.rightStep -= 0.5;
+                    playerCopy.stepRemaining.rightStep -= reduce;
                 }; break;
                 case 'up': {
                     playerCopy.position.koorY -= range;
-                    playerCopy.stepRemaining.upStep -= 0.5;
+                    playerCopy.stepRemaining.upStep -= reduce;
                 }; break;
                 case 'down': {
                     playerCopy.position.koorY += range;
-                    playerCopy.stepRemaining.downStep -= 0.5;
+                    playerCopy.stepRemaining.downStep -= reduce;
                 }; break;
                 default: console.log('WTF!');
             }
