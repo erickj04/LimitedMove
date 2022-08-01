@@ -68,7 +68,7 @@ export default function App() {
         setCurrentLevel(currentLevel + 1);
         dispatch({
           type: 'reset',
-          initialBody: {...levels[currentLevel + 1].initialBody}
+          initialBody: {position: {...levels[currentLevel + 1].initialBody.position}, stepRemaining: {...levels[currentLevel + 1].initialBody.stepRemaining}, stepRange: levels[currentLevel + 1].initialBody.stepRange}
         });
       }
       else if(isPossible({nextPlace, can})){
@@ -91,6 +91,7 @@ export default function App() {
   // useEffect(() => {
   //   console.log(player);
   // }, [player]);
+  console.log(initialBody);
 
   function handleClickReset(){
     dispatch({
