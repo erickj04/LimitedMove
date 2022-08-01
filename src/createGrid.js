@@ -18,7 +18,7 @@ const Box = styled.div`
     box-sizing: border-box;
     flex-grow: 1;
     ${props => props.type == 'player' && css`
-        background: lightgreen;
+        background: green;
     `}
     ${props => props.type == 'wall' && css`
         background: black;
@@ -26,7 +26,7 @@ const Box = styled.div`
     ${props => props.type == 'goal' && css`
         background: gold;
     `}
-    ${props => props.type == 'timesTwo' && css`
+    ${props => props.type == 'superJump' && css`
         background: red;
     `}
 `;
@@ -36,7 +36,7 @@ const Baris = styled.div`
     flex-grow: 1;
 `
 
-export default function CreateGrid({player, length, walls, goal, timesTwo}){
+export default function CreateGrid({player, length, walls, goal, superJump}){
     const [boxes, setBoxes] = useState([]);
     useEffect(() => {
         let nextId = 0;
@@ -54,8 +54,8 @@ export default function CreateGrid({player, length, walls, goal, timesTwo}){
                 else if(goal.koorX === now.koorX && goal.koorY === now.koorY){
                     newBoxes[i].push({type: 'goal', id:{nextId}});
                 }
-                else if(timesTwo.find(twotimes => twotimes.koorX === now.koorX && twotimes.koorY === now.koorY)){
-                    newBoxes[i].push({type: 'timesTwo', id:{nextId}});
+                else if(superJump.find(twoTimes => twoTimes.koorX === now.koorX && twoTimes.koorY === now.koorY)){
+                    newBoxes[i].push({type: 'superJump', id:{nextId}});
                 }
                 else newBoxes[i].push({type: 'empty', id:{nextId}});
                 nextId++;

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useReducer } from 'react';
 import  PlayerManager from "./PlayerManager";
 import { useEffect } from "react";
-import showStepRemaining from './ShowStepRemaining.js';
+import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
 
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
   const walls = levels[currentLevel].walls;
   const goal = levels[currentLevel].goal;
   const length = levels[currentLevel].length;
-  const timesTwo = levels[currentLevel].timesTwo;
+  const superJump = levels[currentLevel].superJump;
 
   const [player, dispatch] = useReducer(
     PlayerManager,
@@ -25,6 +25,12 @@ export default function App() {
   }
   function isGoal({nextPlace, can}){
     return nextPlace.koorX === goal.koorX && nextPlace.koorY === goal.koorY & can;
+  }
+  function isSuperJump({nextPlace}){
+    if(superJump.find(twoTimes => twoTimes.koorX === nextPlace.koorX && twoTimes.koorY === nextPlace.koorY)){
+      return true;
+    }
+    return false
   }
 
   function moveDirection(e){
@@ -57,10 +63,10 @@ export default function App() {
       nextPlace.koorX += dx;
       nextPlace.koorY += dy;
       if(isGoal({nextPlace, can})){
-        setCurrentLevel(level => level + 1);
+        setCurrentLevel(currentLevel + 1);
         dispatch({
           type: 'reset',
-          initialBody: {...initialBody}
+          initialBody: {...levels[currentLevel + 1].initialBody}
         });
       }
       else if(isPossible({nextPlace, can})){
@@ -68,33 +74,36 @@ export default function App() {
           type: 'movePlayer',
           direction: direction
         });
+        if(isSuperJump({nextPlace})){
+          dispatch({
+            type: 'superJump'
+          })
+        }
       }
     }
   }
-  console.log('level: ' + currentLevel);
   useEffect(() => {
     document.addEventListener('keydown', moveDirection);
     return () => {
       document.removeEventListener('keydown', moveDirection);
     }
   });
-
+  // console.log(initialBody);
   // useEffect(() => {
   //   console.log(player);
   // }, [player]);
 
-  console.log(initialBody);
   function handleClickReset(){
     dispatch({
       type: 'reset',
-      initialBody: {...initialBody, position: {...initialBody.position}}
+      initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
     })
   }
 
   return (
     <div>
-        {createGrid({player, length, walls, goal, timesTwo})}
-        {showStepRemaining({player})}
+        {createGrid({player, length, walls, goal, superJump})}
+        {ShowMessage({player})}
         <button onClick={handleClickReset}> reset </button>
     </div>
   );

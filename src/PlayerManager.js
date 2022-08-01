@@ -24,6 +24,12 @@ export default function PlayerManager(player, action){
             }
             return {...playerCopy};
         }
+        case 'superJump': {
+            return {
+                ...player,
+                stepRange: 2
+            }
+        }
         case 'reset': {
             return {...action.initialBody};
         }
