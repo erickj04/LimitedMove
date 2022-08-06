@@ -1,5 +1,5 @@
 import  styled, {css} from "styled-components";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const Container = styled.div`
     display: flex;
@@ -39,8 +39,7 @@ const Baris = styled.div`
     flex-grow: 1;
 `
 
-export default function CreateGrid({player, length, walls, goal, superJump, switchClockwise}){
-    const [boxes, setBoxes] = useState([]);
+export default function Grid({player, length, walls, goal, superJump, switchClockwise, boxes, setBoxes}){
     useEffect(() => {
         let nextId = 0;
         const newBoxes = [];
@@ -71,14 +70,13 @@ export default function CreateGrid({player, length, walls, goal, superJump, swit
     }, [player]);
     return(
         <Container>
-            {
-                boxes.map((row, i)=> {
+            {boxes.map((row, i)=> {
                     return(
                         <Baris key={i} >
                         {
                             row.map(box => {
                                 return(
-                                    <Box key={box.id} type={box.type}></Box>
+                                    <Box key={box.id} type={box.type} />
                                 )
                             })
                         }

@@ -65,4 +65,22 @@ export const levels = [
           
         ],
     },
+    {
+      initialBody: {
+          position: {koorX: 0, koorY: 0},
+          stepRange: 0,
+          stepRemaining: {leftStep: 0, rightStep: 0, upStep: 0, downStep: 0}
+      },
+      walls: [
+        
+      ],
+      goal: {koorX: 0, koorY: 0},
+      length: 0,
+      superJump: [
+
+      ],
+      switchClockwise: [
+          
+      ],
+    },
 ]

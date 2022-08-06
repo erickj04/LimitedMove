@@ -1,10 +1,11 @@
-import createGrid from "./createGrid";
+import Grid from "./createGrid";
 import { useState } from 'react';
 import { useReducer } from 'react';
 import  PlayerManager from "./PlayerManager";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
+import finishPicture from './Finish.jpg';
 
 export default function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
@@ -14,11 +15,13 @@ export default function App() {
   const length = levels[currentLevel].length;
   const superJump = levels[currentLevel].superJump;
   const switchClockwise = levels[currentLevel].switchClockwise;
+  const [boxes, setBoxes] = useState([]);
   const [player, dispatch] = useReducer(
     PlayerManager,
     {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
   );
-  
+  const [finished, setFinished] = useState(false);
+
   function isPossible({nextPlace, can}){
     if(walls.find(wall => wall.koorX === nextPlace.koorX && wall.koorY === nextPlace.koorY))can = false;
     return nextPlace.koorX > 0 && nextPlace.koorX  <= length && nextPlace.koorY > 0 && nextPlace.koorY <= length && can;
@@ -66,6 +69,7 @@ export default function App() {
       nextPlace.koorY += dy;
       if(isGoal({nextPlace, can})){
         setCurrentLevel(currentLevel + 1);
+        if(currentLevel + 1 === levels.length - 1)setFinished(true);
         dispatch({
           type: 'reset',
           initialBody: {position: {...levels[currentLevel + 1].initialBody.position}, stepRemaining: {...levels[currentLevel + 1].initialBody.stepRemaining}, stepRange: levels[currentLevel + 1].initialBody.stepRange}
@@ -92,19 +96,26 @@ export default function App() {
   //   console.log(player);
   // }, [player]);
   console.log(initialBody);
-
+  
   function handleClickReset(){
     dispatch({
       type: 'reset',
       initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
     })
   }
-
+  console.log(finished);
+  console.log(finishPicture);
   return (
-    <div>
-        {createGrid({player, length, walls, goal, superJump, switchClockwise})}
-        {ShowMessage({player})}
-        <button onClick={handleClickReset}> RESET </button>
-    </div>
+    !finished ? (
+      <div>
+          {Grid({player, length, walls, goal, superJump, switchClockwise, boxes, setBoxes})}
+          {ShowMessage({player})}
+          <button onClick={handleClickReset}> RESET </button>
+      </div>
+    ):(
+      <div>
+        <img src={finishPicture} />
+      </div>
+    )
   );
 }
