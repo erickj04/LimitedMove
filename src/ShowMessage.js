@@ -1,6 +1,8 @@
 export default function ShowMessage({player}){
     return(
         <div>
+            Remaining Moves
+            <br />
             {`(press w) up: ${player.stepRemaining.upStep}`}
             <br/>
             {`(press s) down: ${player.stepRemaining.downStep}`}
@@ -14,9 +16,9 @@ export default function ShowMessage({player}){
             <br />
             Gold Box: Your Goal
             <br />
-            Red Box: Will Activate Super Jump (Doubles Your Step Range)
+            Red Box: Will Activate Super Jump (Doubles Your Step Range & Can Jump Over Walls)
             <br />
-            Blue Box: Will Switch All The Remaining Move Clockwise
+            Blue Box: Will Switch All The Remaining Move Clockwise (up b)
         </div>
     )
 }

@@ -11,34 +11,59 @@ const Container = styled.div`
     width: 50vw;
     height: 50vw;
 `
-
-const Box = styled.div`
+const EmptyBox = styled.div`
     border-color: black;
     border-style: solid;
     box-sizing: border-box;
     flex-grow: 1;
-    ${props => props.type === 'player' && css`
-        background: green;
-    `}
-    ${props => props.type === 'wall' && css`
-        background: black;
-    `}
-    ${props => props.type === 'goal' && css`
-        background: gold;
-    `}
-    ${props => props.type === 'superJump' && css`
-        background: red;
-    `}
-    ${props => props.type === 'clockwise' && css`
-        background: blue;
-    `}
 `;
-
 const Baris = styled.div`
     display: flex;
     flex-grow: 1;
 `
-
+const PlayerBox = styled.div`
+    border-color: black;
+    border-style: solid;
+    box-sizing: border-box;
+    flex-grow: 1;
+    background: green;
+`
+const WallBox = styled.div`
+    border-color: black;
+    border-style: solid;
+    box-sizing: border-box;
+    flex-grow: 1;
+    background: black;
+`
+const GoalBox = styled.div`
+    border-color: black;
+    border-style: solid;
+    box-sizing: border-box;
+    flex-grow: 1;
+    background: gold;
+`
+const SuperJumpBox = styled.div`
+    border-color: black;
+    border-style: solid;
+    box-sizing: border-box;
+    flex-grow: 1;
+    background: red;
+`
+const ClockwiseBox = styled.div`
+    border-color: black;
+    border-style: solid;
+    box-sizing: border-box;
+    flex-grow: 1;
+    background: blue;
+`
+function boxType({type, id}){
+    if(type === 'player')return(<PlayerBox key={id}></PlayerBox>);
+    else if(type === 'wall')return(<WallBox key={id} />);
+    else if(type === 'goal')return(<GoalBox key={id} />);
+    else if(type === 'superJump')return(<SuperJumpBox key={id} />);
+    else if(type === 'clockwise')return(<ClockwiseBox key={id} />);
+    else  return(<EmptyBox key={id}/>)
+}
 export default function Grid({player, length, walls, goal, superJump, switchClockwise, boxes, setBoxes}){
     useEffect(() => {
         let nextId = 0;
@@ -73,13 +98,7 @@ export default function Grid({player, length, walls, goal, superJump, switchCloc
             {boxes.map((row, i)=> {
                     return(
                         <Baris key={i} >
-                        {
-                            row.map(box => {
-                                return(
-                                    <Box key={box.id} type={box.type} />
-                                )
-                            })
-                        }
+                            {row.map(box => boxType({type: box.type, id:box.id}))}
                         </Baris>
                     )
                 })

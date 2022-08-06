@@ -1,7 +1,7 @@
 import Grid from "./createGrid";
 import { useState } from 'react';
 import { useReducer } from 'react';
-import  PlayerManager from "./PlayerManager";
+import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
@@ -17,7 +17,7 @@ export default function App() {
   const switchClockwise = levels[currentLevel].switchClockwise;
   const [boxes, setBoxes] = useState([]);
   const [player, dispatch] = useReducer(
-    PlayerManager,
+    ManagePlayer,
     {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
   );
   const [finished, setFinished] = useState(false);
@@ -80,8 +80,8 @@ export default function App() {
           type: 'movePlayer',
           direction: direction
         });
-        if(isSuperJump({nextPlace}))dispatch({type: 'superJump'})
-        if(isSwitchClockwise({nextPlace}))dispatch({type: 'switchClockwise'})
+        if(isSuperJump({nextPlace}))dispatch({type: 'superJump'});
+        if(isSwitchClockwise({nextPlace}))dispatch({type: 'switchClockwise'});
       }
     }
   }

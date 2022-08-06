@@ -1,4 +1,4 @@
-export default function PlayerManager(player, action){
+export default function ManagePlayer(player, action){
     switch (action.type){
         case 'movePlayer': {
             const playerCopy = {...player};
