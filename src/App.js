@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
 import finishPicture from './Finish.jpg';
-
 export default function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
   const initialBody = levels[currentLevel].initialBody;

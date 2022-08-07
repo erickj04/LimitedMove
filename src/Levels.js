@@ -7,7 +7,8 @@ export const levels = [
         },
         walls: [
           {koorX: 3, koorY: 3},
-          {koorX: 1, koorY: 1}
+          {koorX: 1, koorY: 1},
+          {koorX: 2, koorY: 1},
         ],
         goal: {koorX: 2, koorY: 3},
         gridSize: 5,

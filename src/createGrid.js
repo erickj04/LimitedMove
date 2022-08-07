@@ -1,19 +1,20 @@
 import  styled, {css} from "styled-components";
 import { useEffect } from 'react';
-
+import ClockwiseIcon from './Clockwise.svg';
+import WallIcon from './Wall.jpg';
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     border-width: 1vw;
-    border-color: green;
+    border-color: black;
     border-style: solid;
     box-sizing: border-box;
     width: 50vw;
     height: 50vw;
 `
 const Baris = styled.div`
-display: flex;
-flex: 1;
+    display: flex;
+    flex: 1;
 `
 const EmptyBox = styled.div`
     border-color: black;
@@ -21,52 +22,38 @@ const EmptyBox = styled.div`
     box-sizing: border-box;
     flex: 1;
 `;
-const PlayerBox = styled.div`
+const PlayerBox = styled(EmptyBox)`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-color: black;
-    border-style: solid;
-    box-sizing: border-box;
-    flex: 1;
     background: green;
+    font-weight: bold;
 `
-const WallBox = styled.div`
-    border-color: black;
-    border-style: solid;
-    box-sizing: border-box;
-    flex: 1;
-    background: black;
+const WallBox = styled(EmptyBox)`
+    display: flex;
+    background-image: url(${WallIcon});
+    background-size: cover;
 `
-const GoalBox = styled.div`
+const GoalBox = styled(EmptyBox)`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-color: black;
-    border-style: solid;
-    box-sizing: border-box;
-    flex: 1;
     background: gold;
+    font-weight: bold;
 `
-const SuperJumpBox = styled.div`
+const SuperJumpBox = styled(EmptyBox)`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-color: black;
-    border-style: solid;
-    box-sizing: border-box;
-    flex: 1;
     background: red;
 `
-const ClockwiseBox = styled.div`
+const ClockwiseBox = styled(EmptyBox)`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-color: black;
-    border-style: solid;
-    box-sizing: border-box;
-    flex: 1;
-    background: blue;
+    background-color: cyan;
+    background-image: url(${ClockwiseIcon});
+    background-size: cover;
 `
 function boxType({type, id}){
     if(type === 'player')return(<PlayerBox key={id}>You</PlayerBox>);
