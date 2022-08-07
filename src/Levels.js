@@ -10,7 +10,7 @@ export const levels = [
           {koorX: 1, koorY: 1}
         ],
         goal: {koorX: 2, koorY: 3},
-        length: 5,
+        gridSize: 5,
         superJump: [
 
         ],
@@ -57,7 +57,7 @@ export const levels = [
           {koorX: 8, koorY: 5},
         ],
         goal: {koorX: 10, koorY: 10},
-        length: 10,
+        gridSize: 10,
         superJump: [
           {koorX: 4, koorY: 4}
         ],
@@ -75,12 +75,12 @@ export const levels = [
         
       ],
       goal: {koorX: 0, koorY: 0},
-      length: 0,
+      gridSize: 0,
       superJump: [
 
       ],
       switchClockwise: [
-          
+
       ],
     },
 ]

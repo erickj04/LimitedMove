@@ -12,7 +12,7 @@ export default function App() {
   const initialBody = levels[currentLevel].initialBody;
   const walls = levels[currentLevel].walls;
   const goal = levels[currentLevel].goal;
-  const length = levels[currentLevel].length;
+  const gridSize = levels[currentLevel].gridSize;
   const superJump = levels[currentLevel].superJump;
   const switchClockwise = levels[currentLevel].switchClockwise;
   const [boxes, setBoxes] = useState([]);
@@ -24,20 +24,22 @@ export default function App() {
 
   function isPossible({nextPlace, can}){
     if(walls.find(wall => wall.koorX === nextPlace.koorX && wall.koorY === nextPlace.koorY))can = false;
-    return nextPlace.koorX > 0 && nextPlace.koorX  <= length && nextPlace.koorY > 0 && nextPlace.koorY <= length && can;
+    return nextPlace.koorX > 0 && nextPlace.koorX  <= gridSize && nextPlace.koorY > 0 && nextPlace.koorY <= gridSize && can;
   }
   function isGoal({nextPlace, can}){
     return nextPlace.koorX === goal.koorX && nextPlace.koorY === goal.koorY & can;
   }
   function isSuperJump({nextPlace}){
-    if(superJump.find(twoTimes => twoTimes.koorX === nextPlace.koorX && twoTimes.koorY === nextPlace.koorY)){
-      return true;
-    }
-    return false
+    return superJump.find(twoTimes => twoTimes.koorX === nextPlace.koorX && twoTimes.koorY === nextPlace.koorY)
   }
   function isSwitchClockwise({nextPlace}){
     return switchClockwise.find(clockwise => clockwise.koorX === nextPlace.koorX && clockwise.koorY === nextPlace.koorY);
   }
+  function isSpecialBox({nextPlace}){
+    if(isSuperJump({nextPlace}))dispatch({type: 'superJump'});
+    if(isSwitchClockwise({nextPlace}))dispatch({type: 'switchClockwise'});
+  }
+  
   function moveDirection(e){
     if(e.key === 'a' || e.key === 'd' || e.key === 'w' || e.key === 's'){
       let direction = 'null';
@@ -80,8 +82,7 @@ export default function App() {
           type: 'movePlayer',
           direction: direction
         });
-        if(isSuperJump({nextPlace}))dispatch({type: 'superJump'});
-        if(isSwitchClockwise({nextPlace}))dispatch({type: 'switchClockwise'});
+        isSpecialBox({nextPlace});
       }
     }
   }
@@ -95,7 +96,6 @@ export default function App() {
   // useEffect(() => {
   //   console.log(player);
   // }, [player]);
-  console.log(initialBody);
   
   function handleClickReset(){
     dispatch({
@@ -103,12 +103,10 @@ export default function App() {
       initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
     })
   }
-  console.log(finished);
-  console.log(finishPicture);
   return (
     !finished ? (
       <div>
-          {Grid({player, length, walls, goal, superJump, switchClockwise, boxes, setBoxes})}
+          {Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes})}
           {ShowMessage({player})}
           <button onClick={handleClickReset}> RESET </button>
       </div>

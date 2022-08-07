@@ -11,66 +11,78 @@ const Container = styled.div`
     width: 50vw;
     height: 50vw;
 `
+const Baris = styled.div`
+display: flex;
+flex: 1;
+`
 const EmptyBox = styled.div`
     border-color: black;
     border-style: solid;
     box-sizing: border-box;
-    flex-grow: 1;
+    flex: 1;
 `;
-const Baris = styled.div`
-    display: flex;
-    flex-grow: 1;
-`
 const PlayerBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-color: black;
     border-style: solid;
     box-sizing: border-box;
-    flex-grow: 1;
+    flex: 1;
     background: green;
 `
 const WallBox = styled.div`
     border-color: black;
     border-style: solid;
     box-sizing: border-box;
-    flex-grow: 1;
+    flex: 1;
     background: black;
 `
 const GoalBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-color: black;
     border-style: solid;
     box-sizing: border-box;
-    flex-grow: 1;
+    flex: 1;
     background: gold;
 `
 const SuperJumpBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-color: black;
     border-style: solid;
     box-sizing: border-box;
-    flex-grow: 1;
+    flex: 1;
     background: red;
 `
 const ClockwiseBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-color: black;
     border-style: solid;
     box-sizing: border-box;
-    flex-grow: 1;
+    flex: 1;
     background: blue;
 `
 function boxType({type, id}){
-    if(type === 'player')return(<PlayerBox key={id}></PlayerBox>);
+    if(type === 'player')return(<PlayerBox key={id}>You</PlayerBox>);
     else if(type === 'wall')return(<WallBox key={id} />);
-    else if(type === 'goal')return(<GoalBox key={id} />);
-    else if(type === 'superJump')return(<SuperJumpBox key={id} />);
-    else if(type === 'clockwise')return(<ClockwiseBox key={id} />);
+    else if(type === 'goal')return(<GoalBox key={id}>Goal</GoalBox>);
+    else if(type === 'superJump')return(<SuperJumpBox key={id}>2X</SuperJumpBox>);
+    else if(type === 'clockwise')return(<ClockwiseBox key={id}>Clockwise</ClockwiseBox>);
     else  return(<EmptyBox key={id}/>)
 }
-export default function Grid({player, length, walls, goal, superJump, switchClockwise, boxes, setBoxes}){
+export default function Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes}){
     useEffect(() => {
         let nextId = 0;
         const newBoxes = [];
-        for(let i = 1 ; i <= length ; i++){
+        for(let i = 1 ; i <= gridSize ; i++){
             newBoxes[i] = [];
-            for(let j = 1 ; j <= length ; j++){
+            for(let j = 1 ; j <= gridSize ; j++){
                 let now = {koorX: j, koorY: i};
                 if(player.position.koorX === now.koorX && player.position.koorY === now.koorY){
                     newBoxes[i].push({type: 'player', id:{nextId}});
