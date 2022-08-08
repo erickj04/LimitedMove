@@ -5,7 +5,6 @@ import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
-import finishPicture from './Finish.jpg';
 export default function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
   const initialBody = levels[currentLevel].initialBody;
@@ -14,12 +13,12 @@ export default function App() {
   const gridSize = levels[currentLevel].gridSize;
   const superJump = levels[currentLevel].superJump;
   const switchClockwise = levels[currentLevel].switchClockwise;
+  const finished = levels[currentLevel].finished;
   const [boxes, setBoxes] = useState([]);
   const [player, dispatch] = useReducer(
     ManagePlayer,
     {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
   );
-  const [finished, setFinished] = useState(false);
 
   function isPossible({nextPlace, can}){
     if(walls.find(wall => wall.koorX === nextPlace.koorX && wall.koorY === nextPlace.koorY))can = false;
@@ -70,7 +69,6 @@ export default function App() {
       nextPlace.koorY += dy;
       if(isGoal({nextPlace, can})){
         setCurrentLevel(currentLevel + 1);
-        if(currentLevel + 1 === levels.length - 1)setFinished(true);
         dispatch({
           type: 'reset',
           initialBody: {position: {...levels[currentLevel + 1].initialBody.position}, stepRemaining: {...levels[currentLevel + 1].initialBody.stepRemaining}, stepRange: levels[currentLevel + 1].initialBody.stepRange}
@@ -103,16 +101,10 @@ export default function App() {
     })
   }
   return (
-    !finished ? (
-      <div>
-          {Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes})}
-          {ShowMessage({player})}
-          <button onClick={handleClickReset}> RESET </button>
-      </div>
-    ):(
-      <div>
-        <img src={finishPicture} />
-      </div>
-    )
+    <div>
+      {Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes, finished})}
+      {ShowMessage({player})}
+      <button onClick={handleClickReset}> RESET </button>
+    </div>
   );
 }

@@ -2,68 +2,80 @@ import  styled, {css} from "styled-components";
 import { useEffect } from 'react';
 import ClockwiseIcon from './Clockwise.svg';
 import WallIcon from './Wall.jpg';
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    border-width: 1vw;
-    border-color: black;
-    border-style: solid;
-    box-sizing: border-box;
-    width: 50vw;
-    height: 50vw;
-`
-const Baris = styled.div`
-    display: flex;
-    flex: 1;
-`
-const EmptyBox = styled.div`
-    border-color: black;
-    border-style: solid;
-    box-sizing: border-box;
-    flex: 1;
-`;
-const PlayerBox = styled(EmptyBox)`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: green;
-    font-weight: bold;
-`
-const WallBox = styled(EmptyBox)`
-    display: flex;
-    background-image: url(${WallIcon});
-    background-size: cover;
-`
-const GoalBox = styled(EmptyBox)`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: gold;
-    font-weight: bold;
-`
-const SuperJumpBox = styled(EmptyBox)`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: red;
-`
-const ClockwiseBox = styled(EmptyBox)`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: cyan;
-    background-image: url(${ClockwiseIcon});
-    background-size: cover;
-`
-function boxType({type, id}){
-    if(type === 'player')return(<PlayerBox key={id}>You</PlayerBox>);
-    else if(type === 'wall')return(<WallBox key={id} />);
-    else if(type === 'goal')return(<GoalBox key={id}>Goal</GoalBox>);
-    else if(type === 'superJump')return(<SuperJumpBox key={id}>2X</SuperJumpBox>);
-    else if(type === 'clockwise')return(<ClockwiseBox key={id}>Clockwise</ClockwiseBox>);
-    else  return(<EmptyBox key={id}/>)
-}
-export default function Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes}){
+import FinishPicture from './Finish.jpg';
+export default function Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes, finished}){
+    const Container = styled.div`
+        display: flex;
+        flex-direction: column;
+        border-width: 1vw;
+        border-color: black;
+        border-style: solid;
+        box-sizing: border-box;
+        width: 50vw;
+        height: 50vw;
+    `
+    const Baris = styled.div`
+        display: flex;
+        flex: 1;
+    `
+    const EmptyBox = styled.div`
+        border-color: black;
+        border-style: solid;
+        box-sizing: border-box;
+        flex: 1;
+    `;
+    const PlayerBox = styled(EmptyBox)`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: green;
+        font-weight: bold;
+        font-size: ${10/gridSize}vw;
+    `
+    const WallBox = styled(EmptyBox)`
+        display: flex;
+        background-image: url(${WallIcon});
+        background-size: cover;
+    `
+    const GoalBox = styled(EmptyBox)`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: gold;
+        font-weight: bold;
+        font-size: ${10/gridSize}vw;
+    `
+    const SuperJumpBox = styled(EmptyBox)`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: red;
+    `
+    const ClockwiseBox = styled(EmptyBox)`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: cyan;
+        background-image: url(${ClockwiseIcon});
+        background-size: cover;
+    `
+    const FinishBox = styled(EmptyBox)`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: cyan;
+        background-image: url(${FinishPicture});
+        background-size: cover;
+    `
+    function boxType({type, id}){
+        if(type === 'player')return(<PlayerBox key={id}>You</PlayerBox>);
+        else if(type === 'wall')return(<WallBox key={id} />);
+        else if(type === 'goal')return(<GoalBox key={id}>Goal</GoalBox>);
+        else if(type === 'superJump')return(<SuperJumpBox key={id}>2X</SuperJumpBox>);
+        else if(type === 'clockwise')return(<ClockwiseBox key={id}></ClockwiseBox>);
+        else if(type === 'finished')return(<FinishBox key={id}/>);
+        else  return(<EmptyBox key={id}/>)
+    }
     useEffect(() => {
         let nextId = 0;
         const newBoxes = [];
@@ -86,6 +98,9 @@ export default function Grid({player, gridSize, walls, goal, superJump, switchCl
                 else if(switchClockwise.find(clockwise => clockwise.koorX === now.koorX && clockwise.koorY === now.koorY)){
                     newBoxes[i].push({type: 'clockwise', id:{nextId}});
                 }
+                else if(finished){
+                    newBoxes[i].push({type: 'finished', id:{nextId}});
+                }
                 else newBoxes[i].push({type: 'empty', id:{nextId}});
                 nextId++;
             }
@@ -95,11 +110,7 @@ export default function Grid({player, gridSize, walls, goal, superJump, switchCl
     return(
         <Container>
             {boxes.map((row, i)=> {
-                    return(
-                        <Baris key={i} >
-                            {row.map(box => boxType({type: box.type, id:box.id}))}
-                        </Baris>
-                    )
+                    return(<Baris key={i}>{row.map(box => boxType({type: box.type, id:box.id}))}</Baris>)
                 })
             }
         </Container>

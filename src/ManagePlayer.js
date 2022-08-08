@@ -32,7 +32,6 @@ export default function ManagePlayer(player, action){
             }
         }
         case 'switchClockwise': {
-            console.log('yay');
             return {
                 ...player,
                 stepRemaining: {

@@ -5,9 +5,9 @@ export default function ShowMessage({player}){
             <br />
             {`(press w) up: ${player.stepRemaining.upStep}`}
             <br/>
-            {`(press s) down: ${player.stepRemaining.downStep}`}
-            <br />
             {`(press d) right: ${player.stepRemaining.rightStep}`}
+            <br />
+            {`(press s) down: ${player.stepRemaining.downStep}`}
             <br />
             {`(press a) left: ${player.stepRemaining.leftStep}`}
             <br />
