@@ -11,14 +11,14 @@ export default function ShowMessage({player}){
             <br />
             {`(press a) left: ${player.stepRemaining.leftStep}`}
             <br />
-            <h2>Box Infos:</h2>
-            Green Box: You
+            <h2>{'Box Infos:'}</h2>
+            {'Green Box: You'}
             <br />
-            Gold Box: Your Goal
+            {'Gold Box: Your Goal'}
             <br />
-            Red Box: Will Activate Super Jump (Doubles Your Step Range & Can Jump Over Walls)
+            {'Red Box: Will Activate Super Jump (Doubles Your Step Range & Can Jump Over Walls)'}
             <br />
-            Blue Box: Will Switch All The Remaining Move Clockwise (up -> right -> down -> left -> up)
+            {'Blue Box: Will Switch All The Remaining Move Clockwise (up -> right -> down -> left -> up)'}
         </div>
     )
 }

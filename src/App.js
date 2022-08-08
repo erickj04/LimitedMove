@@ -7,6 +7,7 @@ import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
 export default function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
+  const [boxes, setBoxes] = useState([]);
   const initialBody = levels[currentLevel].initialBody;
   const walls = levels[currentLevel].walls;
   const goal = levels[currentLevel].goal;
@@ -14,12 +15,16 @@ export default function App() {
   const superJump = levels[currentLevel].superJump;
   const switchClockwise = levels[currentLevel].switchClockwise;
   const finished = levels[currentLevel].finished;
-  const [boxes, setBoxes] = useState([]);
   const [player, dispatch] = useReducer(
     ManagePlayer,
     {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
   );
-
+  useEffect(() => {
+    document.addEventListener('keydown', moveDirection);
+    return () => {
+      document.removeEventListener('keydown', moveDirection);
+    }
+  });
   function isPossible({nextPlace, can}){
     if(walls.find(wall => wall.koorX === nextPlace.koorX && wall.koorY === nextPlace.koorY))can = false;
     return nextPlace.koorX > 0 && nextPlace.koorX  <= gridSize && nextPlace.koorY > 0 && nextPlace.koorY <= gridSize && can;
@@ -83,12 +88,6 @@ export default function App() {
       }
     }
   }
-  useEffect(() => {
-    document.addEventListener('keydown', moveDirection);
-    return () => {
-      document.removeEventListener('keydown', moveDirection);
-    }
-  });
   // console.log(initialBody);
   // useEffect(() => {
   //   console.log(player);
