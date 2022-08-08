@@ -5,6 +5,7 @@ import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
+import { useContext } from "react";
 export default function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
   const [boxes, setBoxes] = useState([]);
@@ -42,7 +43,6 @@ export default function App() {
     if(isSuperJump({nextPlace}))dispatch({type: 'superJump'});
     if(isSwitchClockwise({nextPlace}))dispatch({type: 'switchClockwise'});
   }
-  
   function moveDirection(e){
     if(e.key === 'a' || e.key === 'd' || e.key === 'w' || e.key === 's'){
       let direction = 'null';
