@@ -16,9 +16,9 @@ export default function ShowMessage({player}){
             <br />
             {'Gold Box: Your Goal'}
             <br />
-            {'Red Box: Will Activate Super Jump (Doubles Your Step Range & Can Jump Over Walls)'}
-            <br />
             {'Blue Box: Will Switch All The Remaining Move Clockwise (up -> right -> down -> left -> up)'}
+            <br />
+            {'Red Box: Will Activate Super Jump (Doubles Your Step Range & Can Jump Over Walls) For The Rest Of The Game'}
         </div>
     )
 }
