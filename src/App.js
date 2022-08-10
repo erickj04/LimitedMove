@@ -102,7 +102,7 @@ export default function App() {
   }
   return (
     <div>
-    {finished ? (
+    {!finished ? (
       <div>
         {Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes, finished})}
         <button onClick={handleClickReset}> RESET </button>
