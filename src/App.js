@@ -5,8 +5,8 @@ import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
-import finishedPicture from './Finish.jpg';
-import ContextGame from "./LevelHandling";
+import finishedPicture from './Finish.jpg'
+import { useContext } from "react";
 export default function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
   const [boxes, setBoxes] = useState([]);
@@ -101,17 +101,17 @@ export default function App() {
     })
   }
   return (
-    <ContextGame currentLevel={currentLevel}>
-        {!finished ?(
-          <div>
-            {Grid({player:player, boxes:boxes, setBoxes:setBoxes})}
-            <button onClick={handleClickReset}> RESET </button>
-            {ShowMessage({player})}
-          </div>
-        ):(
-          <img src={finishedPicture} />
+    <div>
+    {true ? (
+      <div>
+        <Grid player={player} gridSize={gridSize} walls={walls} goal={goal} superJump={superJump} switchClockwise={switchClockwise} boxes={boxes} setBoxes={setBoxes} finished={finished} />
+        <button onClick={handleClickReset}> RESET </button>
+        <ShowMessage player={player}/>
+        </div>
+      ):(
+        <div></div>
         )
       }
-    </ContextGame>
+    </div>
   );
 }
