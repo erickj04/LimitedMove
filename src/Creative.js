@@ -6,16 +6,20 @@ import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
 import ContextProvider from "./LevelHandling";
+
 export default function Campaign(){
-  const [currentLevel, setCurrentLevel] = useState(0);
   const [boxes, setBoxes] = useState([]);
-  const initialBody = levels[currentLevel].initialBody;
-  const walls = levels[currentLevel].walls;
-  const goal = levels[currentLevel].goal;
-  const gridSize = levels[currentLevel].gridSize;
-  const superJump = levels[currentLevel].superJump;
-  const switchClockwise = levels[currentLevel].switchClockwise;
-  const finished = levels[currentLevel].finished;
+  const initialBody = {
+    position:{koorX: 0, koorY: 0},
+    stepRange: 1,
+    stepRemaining: {leftStep: 0, rightStep: 0, upStep: 0, downStep: 0}
+  }
+  const walls = [];
+  const goal = {koorX: 0, koorY: 0};
+  const gridSize = 10;
+  const superJump = [];
+  const switchClockwise = [];
+  const finished = false;
   const [player, dispatch] = useReducer(
     ManagePlayer,
     {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
@@ -39,7 +43,6 @@ export default function Campaign(){
   function isSwitchClockwise({nextPlace}){
     return switchClockwise.find(clockwise => clockwise.koorX === nextPlace.koorX && clockwise.koorY === nextPlace.koorY);
   }
-  //When Context Work Put isSpecialBox in another file an use context
   function isSpecialBox({nextPlace}){
     if(isSuperJump({nextPlace}))dispatch({type: 'superJump'});
     if(isSwitchClockwise({nextPlace}))dispatch({type: 'switchClockwise'});
@@ -74,11 +77,7 @@ export default function Campaign(){
       nextPlace.koorX += dx;
       nextPlace.koorY += dy;
       if(isGoal({nextPlace, can})){
-        setCurrentLevel(currentLevel + 1);
-        dispatch({
-          type: 'reset',
-          initialBody: {position: {...levels[currentLevel + 1].initialBody.position}, stepRemaining: {...levels[currentLevel + 1].initialBody.stepRemaining}, stepRange: levels[currentLevel + 1].initialBody.stepRange}
-        });
+        finished = true;
       }
       else if(isPossible({nextPlace, can})){
         dispatch({
@@ -94,18 +93,18 @@ export default function Campaign(){
   //   console.log(player);
   // }, [player]);
   
-  function handleClickReset(){
-    dispatch({
-      type: 'reset',
-      initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
-    })
-  }
+//   function handleClickReset(){
+//     dispatch({
+//       type: 'reset',
+//       initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
+//     })
+//   }
   return(
-    <ContextProvider currentLevel={currentLevel}>
-        <h2>CAMPAIGN</h2>
+    <div>
+        <h2>CREATIVE MODE</h2>
         <Grid player={player} gridSize={gridSize} walls={walls} goal={goal} superJump={superJump} switchClockwise={switchClockwise} boxes={boxes} setBoxes={setBoxes} finished={finished} />
-        <button onClick={handleClickReset}> RESET </button>
+        {/* <button onClick={handleClickReset}> RESET </button> */}
         <ShowMessage player={player}/>
-    </ContextProvider>
+    </div>
   )
 }
