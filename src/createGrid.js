@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import ClockwiseIcon from './Clockwise.svg';
 import WallIcon from './Wall.jpg';
 import FinishPicture from './Finish.jpg';
+import useContextGame from "./LevelHandling";
+
+// import { useInitialBody, useWalls, useSuperJump, useGridSize, useSwitchClockwise, useFinished } from "./LevelHandling";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -68,7 +71,16 @@ const FinishBox = styled(EmptyBox)`
     background-image: url(${FinishPicture});
     background-size: cover;
 `
-export default function Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes, finished}){
+export default function Grid({player, boxes, setBoxes}){
+    const {temp} = useContextGame;
+    console.log(temp);
+    const gridSize = temp.gridSize;
+    const walls = [];
+    const goal = {};
+    const superJump = [];
+    const switchClockwise = [];
+    const finished = false;
+    console.log('gridSize: ' + gridSize);
     function boxType({type, id}){
         if(type === 'player')return(<PlayerBox gridSize={gridSize} key={id}>You</PlayerBox>);
         else if(type === 'wall')return(<WallBox key={id} />);

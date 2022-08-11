@@ -1,17 +1,24 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { levels } from './Levels';
-
-export const initialBody = createContext(levels[currentLevel].initialBody);
-export const walls = createContext(levels[currentLevel].walls);
-export const goal = createContext(levels[currentLevel].goal);
-export const gridSize = createContext(levels[currentLevel].gridSize);
-export const superJump = createContext(levels[currentLevel].superJump);
-export const switchClockwise = createContext(levels[currentLevel].switchClockwise);
-export const finished = createContext(levels[currentLevel].finished);
-export default function ContextProvider({children}){
+export const useInitialBody = () => useContext(ContextGame.initialBody);
+export const useWalls = () => useContext(ContextGame.walls);
+export const useSuperJump = () => useContext(ContextGame.superJump);
+export const useGridSize = () => useContext(ContextGame.gridSize);
+export const useSwitchClockwise = () => useContext(ContextGame.switchClockwise);
+export const useFinished = () => useContext(ContextGame.finished);
+export const useContextGame = () => useContext(ContextGame);
+const ContextGame = createContext(null);
+export default function ContextProvider({children, currentLevel}){
+    const initialBody = levels[currentLevel].initialBody;
+    const walls = levels[currentLevel].walls;
+    const goal = levels[currentLevel].goal;
+    const gridSize = levels[currentLevel].gridSize;
+    const superJump = levels[currentLevel].superJump;
+    const switchClockwise = levels[currentLevel].switchClockwise;
+    const finished = levels[currentLevel].finished;
     return(
-        <ContextProvider.Provider value={initialBody}>
+        <ContextGame.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished}}>
             {children}
-        </ContextProvider.Provider>
+        </ContextGame.Provider>
     )
 }
