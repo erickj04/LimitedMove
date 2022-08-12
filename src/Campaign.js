@@ -5,7 +5,7 @@ import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
-import ContextProvider, {GameSpot, Button, RightSide} from "./LevelHandling";
+import {ContextProvider, GameSpot, Button, RightSide} from "./LevelHandling";
 
 export default function Campaign({creativeMode, setCreativeMode}){
   const [currentLevel, setCurrentLevel] = useState(0);

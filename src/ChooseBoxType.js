@@ -1,4 +1,4 @@
-import WallButton from './LevelHandling';
+import {WallButton} from './LevelHandling';
 
 export default function ChooseBoxType(){
     return(

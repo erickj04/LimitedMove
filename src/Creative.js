@@ -1,13 +1,12 @@
-import Grid from "./createGrid";
 import { useState } from 'react';
 import { useReducer } from 'react';
 import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import ChooseBoxType from "./ChooseBoxType";
-import { GameSpot, Button, RightSide } from "./LevelHandling";
+import { GameSpot, Button, RightSide, Container } from "./LevelHandling";
 
-export default function Campaign({creativeMode, setCreativeMode}){
+export default function Creative({creativeMode, setCreativeMode}){
   const [boxes, setBoxes] = useState([]);
   const initialBody = {
     position:{koorX: 0, koorY: 0},
@@ -106,7 +105,7 @@ export default function Campaign({creativeMode, setCreativeMode}){
     <div>
         <h2>CREATIVE MODE</h2>
         <GameSpot>
-          <Grid player={player} boxes={boxes} setBoxes={setBoxes} />
+          <Container />
           {/* <button onClick={handleClickReset}> RESET </button> */}
           <RightSide>
             <ChooseBoxType />

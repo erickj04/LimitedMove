@@ -9,7 +9,7 @@ import ClockwiseIcon from './Clockwise.svg';
 import FinishPicture from './Finish.jpg';
 export const useContextGame = () => useContext(ContextGame);
 const ContextGame = React.createContext(null);
-export default function ContextProvider({children, currentLevel}){
+export function ContextProvider({children, currentLevel}){
     const initialBody = levels[currentLevel].initialBody;
     const walls = levels[currentLevel].walls;
     const goal = levels[currentLevel].goal;
@@ -103,5 +103,12 @@ export const FinishBox = styled(EmptyBox)`
     justify-content: center;
     background-color: cyan;
     background-image: url(${FinishPicture});
+    background-size: cover;
+`
+export const WallButton=styled.button`
+    display: flex;
+    width: 8vw;
+    height: 6vw;
+    background-image: url(${WallIcon});
     background-size: cover;
 `
