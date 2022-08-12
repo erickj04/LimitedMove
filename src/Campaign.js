@@ -90,10 +90,6 @@ export default function Campaign({creativeMode, setCreativeMode}){
       }
     }
   }
-  // console.log(initialBody);
-  // useEffect(() => {
-  //   console.log(player);
-  // }, [player]);
   
   function handleClickReset(){
     dispatch({

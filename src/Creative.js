@@ -106,7 +106,7 @@ export default function Campaign({creativeMode, setCreativeMode}){
     <div>
         <h2>CREATIVE MODE</h2>
         <GameSpot>
-          <Grid player={player} gridSize={gridSize} walls={walls} goal={goal} superJump={superJump} switchClockwise={switchClockwise} boxes={boxes} setBoxes={setBoxes} finished={finished} />
+          <Grid player={player} boxes={boxes} setBoxes={setBoxes} />
           {/* <button onClick={handleClickReset}> RESET </button> */}
           <RightSide>
             <ChooseBoxType />
