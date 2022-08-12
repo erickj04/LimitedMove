@@ -1,8 +1,7 @@
 export default function ShowMessage({player}){
     return(
         <div>
-            Remaining Moves
-            <br />
+            <h2>Remaining Moves</h2>
             {`(press w) up: ${player.stepRemaining.upStep}`}
             <br/>
             {`(press d) right: ${player.stepRemaining.rightStep}`}

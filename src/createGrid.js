@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import ClockwiseIcon from './Clockwise.svg';
 import WallIcon from './Wall.jpg';
 import FinishPicture from './Finish.jpg';
+
+import { useContextGame, useGridSize } from "./LevelHandling";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -68,7 +70,13 @@ const FinishBox = styled(EmptyBox)`
     background-image: url(${FinishPicture});
     background-size: cover;
 `
-export default function Grid({player, gridSize, walls, goal, superJump, switchClockwise, boxes, setBoxes, finished}){
+export default function Grid({player, boxes, setBoxes}){
+    const {gridSize} = useContextGame();
+    const {walls} = useContextGame();
+    const {goal} = useContextGame();
+    const {superJump} = useContextGame();
+    const {switchClockwise} = useContextGame();
+    const {finished} = useContextGame();
     function boxType({type, id}){
         if(type === 'player')return(<PlayerBox gridSize={gridSize} key={id}>You</PlayerBox>);
         else if(type === 'wall')return(<WallBox key={id} />);
@@ -78,6 +86,7 @@ export default function Grid({player, gridSize, walls, goal, superJump, switchCl
         else if(type === 'finished')return(<FinishBox key={id}/>);
         else  return(<EmptyBox key={id}/>)
     }
+    //too inefficient to move players
     useEffect(() => {
         let nextId = 0;
         const newBoxes = [];

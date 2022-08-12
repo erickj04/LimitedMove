@@ -4,10 +4,10 @@ import { useReducer } from 'react';
 import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
-import { levels } from './Levels';
-import ContextProvider from "./LevelHandling";
+import ChooseBoxType from "./ChooseBoxType";
+import { GameSpot, Button, RightSide } from "./LevelHandling";
 
-export default function Campaign(){
+export default function Campaign({creativeMode, setCreativeMode}){
   const [boxes, setBoxes] = useState([]);
   const initialBody = {
     position:{koorX: 0, koorY: 0},
@@ -93,18 +93,28 @@ export default function Campaign(){
   //   console.log(player);
   // }, [player]);
   
-//   function handleClickReset(){
-//     dispatch({
-//       type: 'reset',
-//       initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
-//     })
-//   }
+  function handleClickReset(){
+    dispatch({
+      type: 'reset',
+      initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
+    })
+  }
+  function handleCreativeMode(){
+    setCreativeMode(!creativeMode);
+}
   return(
     <div>
         <h2>CREATIVE MODE</h2>
-        <Grid player={player} gridSize={gridSize} walls={walls} goal={goal} superJump={superJump} switchClockwise={switchClockwise} boxes={boxes} setBoxes={setBoxes} finished={finished} />
-        {/* <button onClick={handleClickReset}> RESET </button> */}
-        <ShowMessage player={player}/>
+        <GameSpot>
+          <Grid player={player} gridSize={gridSize} walls={walls} goal={goal} superJump={superJump} switchClockwise={switchClockwise} boxes={boxes} setBoxes={setBoxes} finished={finished} />
+          {/* <button onClick={handleClickReset}> RESET </button> */}
+          <RightSide>
+            <ChooseBoxType />
+            <ShowMessage player={player}/>
+            <Button onClick={handleClickReset}> RESET </Button>
+            {!creativeMode ? <Button onClick={handleCreativeMode}> CREATIVE MODE </Button> : <Button onClick={handleCreativeMode}> CAMPAIGN </Button>}
+          </RightSide>
+        </GameSpot>
     </div>
   )
 }

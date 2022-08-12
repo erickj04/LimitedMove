@@ -5,8 +5,9 @@ import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import { levels } from './Levels';
-import ContextProvider from "./LevelHandling";
-export default function Campaign(){
+import ContextProvider, {GameSpot, Button, RightSide} from "./LevelHandling";
+
+export default function Campaign({creativeMode, setCreativeMode}){
   const [currentLevel, setCurrentLevel] = useState(0);
   const [boxes, setBoxes] = useState([]);
   const initialBody = levels[currentLevel].initialBody;
@@ -100,12 +101,20 @@ export default function Campaign(){
       initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
     })
   }
+  function handleCreativeMode(){
+    setCreativeMode(!creativeMode);
+  }
   return(
     <ContextProvider currentLevel={currentLevel}>
         <h2>CAMPAIGN</h2>
-        <Grid player={player} gridSize={gridSize} walls={walls} goal={goal} superJump={superJump} switchClockwise={switchClockwise} boxes={boxes} setBoxes={setBoxes} finished={finished} />
-        <button onClick={handleClickReset}> RESET </button>
-        <ShowMessage player={player}/>
+        <GameSpot>
+          <Grid player={player} boxes={boxes} setBoxes={setBoxes} />
+          <RightSide>
+            <ShowMessage player={player}/>
+            <Button onClick={handleClickReset}> RESET </Button>
+            {!creativeMode ? <Button onClick={handleCreativeMode}> CREATIVE MODE </Button> : <Button onClick={handleCreativeMode}> CAMPAIGN </Button>}
+          </RightSide>
+        </GameSpot>
     </ContextProvider>
   )
 }
