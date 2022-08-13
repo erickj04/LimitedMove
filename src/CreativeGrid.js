@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useContextGame } from "./LevelHandling";
+import { useEffect, useState, useReducer } from 'react';
+import ManagePlayer from './ManagePlayer';
 import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './LevelHandling';
 
-export default function Grid(){
+export default function CreativeGrid({gridSize, player, finished, walls, goal, superJump, switchClockwise, selectedBox}){
     const [boxes, setBoxes] = useState([]);
-    const {gridSize, walls, goal, superJump, switchClockwise, finished, player} = useContextGame();
     function boxType({type, id}){
-        console.log(type);
         if(type === 'player')return(<PlayerBox gridSize={gridSize} key={id}>You</PlayerBox>);
         else if(type === 'wall')return(<WallBox key={id} />);
         else if(type === 'goal')return(<GoalBox gridSize={gridSize} key={id}>Goal</GoalBox>);
@@ -47,11 +45,14 @@ export default function Grid(){
             }
         }
         setBoxes(newBoxes);
-    }, [player]);
+    }, [player, gridSize, finished, walls, goal, superJump, switchClockwise]);
     return(
         <Container>
             {boxes.map((row, i)=> {
-                    return(<Baris key={i}>{row.map(box => boxType({type: box.type, id:box.id}))}</Baris>)
+                    console.log('yay');
+                    return(<Baris key={i}>
+                        {row.map(box => boxType({type: box.type, id:box.id}))}
+                    </Baris>)
                 })
             }
         </Container>

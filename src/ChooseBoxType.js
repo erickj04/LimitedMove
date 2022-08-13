@@ -1,8 +1,7 @@
 import { WallButton, PlayerButton, GoalButton, ClockwiseButton, SuperJumpButton} from './LevelHandling';
 import { useState } from 'react';
 import { CreativeContainer } from './LevelHandling';
-export default function ChooseBoxType(){
-    const [selectedBox, setSelectedBox] = useState('empty');
+export default function ChooseBoxType({selectedBox, setSelectedBox}){
     function handleSelectedBox(type){
         setSelectedBox(type);
     }

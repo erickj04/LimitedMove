@@ -51,20 +51,20 @@ export function ContextProvider({children, currentLevel, setCurrentLevel}){
             let can = true;
             const nextPlace = {...player.position};
             if(direction === 'left'){
-            dx = -player.stepRange;
-            can = player.stepRemaining.leftStep !== 0;
+                dx = -player.stepRange;
+                can = player.stepRemaining.leftStep !== 0;
             }
             if(direction === 'right'){
-            dx = player.stepRange;
-            can = player.stepRemaining.rightStep !== 0;
+                dx = player.stepRange;
+                can = player.stepRemaining.rightStep !== 0;
             }
             if(direction === 'up'){
-            dy = -player.stepRange;
-            can = player.stepRemaining.upStep !== 0;
+                dy = -player.stepRange;
+                can = player.stepRemaining.upStep !== 0;
             }
             if(direction === 'down'){
-            dy = player.stepRange;
-            can = player.stepRemaining.downStep !== 0;
+                dy = player.stepRange;
+                can = player.stepRemaining.downStep !== 0;
             }
             nextPlace.koorX += dx;
             nextPlace.koorY += dy;
@@ -106,7 +106,7 @@ export const Button = styled.button`
 `
 export const RightSide = styled.div`
     display:flex;
-    gap: 2vw;
+    gap: 1vw;
     flex-direction: column;
 `
 export const Container = styled.div`
@@ -252,4 +252,7 @@ export const CreativeContainer = styled.div`
     box-sizing: border-box;
     width: 45vw;
     height: 18vw;
+`
+export const InputSize = styled.input`
+    width: 30vw;
 `

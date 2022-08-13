@@ -4,7 +4,8 @@ import  ManagePlayer from "./ManagePlayer";
 import { useEffect } from "react";
 import ShowMessage from './ShowMessage.js';
 import ChooseBoxType from "./ChooseBoxType";
-import { GameSpot, Button, RightSide, Container, useContextGame } from "./LevelHandling";
+import CreativeGrid from './CreativeGrid';
+import { GameSpot, Button, RightSide, Container, useContextGame, InputSize } from "./LevelHandling";
 
 export default function Creative({creativeMode, setCreativeMode}){
   const [boxes, setBoxes] = useState([]);
@@ -16,7 +17,7 @@ export default function Creative({creativeMode, setCreativeMode}){
   }
   const walls = [];
   const goal = {koorX: 0, koorY: 0};
-  const gridSize = 10;
+  const [gridSize, setGridSize] = useState(null);
   const superJump = [];
   const switchClockwise = [];
   const finished = false;
@@ -24,6 +25,7 @@ export default function Creative({creativeMode, setCreativeMode}){
     ManagePlayer,
     {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
   );
+  const [selectedBox, setSelectedBox] = useState('empty');
   useEffect(() => {
     document.addEventListener('keydown', moveDirection);
     return () => {
@@ -39,13 +41,17 @@ export default function Creative({creativeMode, setCreativeMode}){
   function handleCreativeMode(){
     setCreativeMode(!creativeMode);
   }
+  function handleInputGridSize(e){
+    setGridSize(e.target.value);
+  }
   return(
     <div>
         <h2>CREATIVE MODE</h2>
         <GameSpot>
-          <Container />
+          <CreativeGrid gridSize={gridSize} player={player} finished={finished} walls={walls} goal={goal} superJump={superJump} switchClockwise={switchClockwise} selectedBox={selectedBox}/>
           <RightSide>
-            <ChooseBoxType />
+            <ChooseBoxType selectedBox={selectedBox} setSelectedBox={setSelectedBox}/>
+            <InputSize placeholder='Input Grid Size (MAX 30)' value={gridSize} onChange={(e) => handleInputGridSize(e)}/>
             <ShowMessage player={player}/>
             <Button onClick={handleClickReset}> RESET </Button>
             {!creativeMode ? <Button onClick={handleCreativeMode}> CREATIVE MODE </Button> : <Button onClick={handleCreativeMode}> CAMPAIGN </Button>}
