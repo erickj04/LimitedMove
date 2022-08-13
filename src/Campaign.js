@@ -1,5 +1,4 @@
 import Grid from "./Grid";
-import { useState } from 'react';
 import { useEffect } from 'react';
 import ShowMessage from './ShowMessage.js';
 import {GameSpot, Button, RightSide, useContextGame} from "./LevelHandling";
@@ -19,9 +18,9 @@ export default function Campaign({creativeMode, setCreativeMode}){
     <div>
         <h2>CAMPAIGN</h2>
         <GameSpot>
-          <Grid player={player} />
+          <Grid />
           <RightSide>
-            <ShowMessage player={player}/>
+            <ShowMessage />
             <Button onClick={handleClickReset}> RESET </Button>
             {!creativeMode ? <Button onClick={handleCreativeMode}> CREATIVE MODE </Button> : <Button onClick={handleCreativeMode}> CAMPAIGN </Button>}
           </RightSide>

@@ -5,6 +5,7 @@ import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseB
 export default function Grid(){
     const [boxes, setBoxes] = useState([]);
     const {gridSize, walls, goal, superJump, switchClockwise, finished, player} = useContextGame();
+    console.log('a : ' + gridSize);
     function boxType({type, id}){
         console.log(type);
         if(type === 'player')return(<PlayerBox gridSize={gridSize} key={id}>You</PlayerBox>);

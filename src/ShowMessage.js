@@ -1,4 +1,6 @@
-export default function ShowMessage({player}){
+import { useContextGame } from './LevelHandling';
+export default function ShowMessage(){
+    const {player} = useContextGame();
     return(
         <div>
             <h2>Remaining Moves</h2>

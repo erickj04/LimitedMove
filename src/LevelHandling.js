@@ -220,6 +220,7 @@ export const GoalButton=styled.button`
     background: gold;
     width: 8vw;
     height: 6vw;
+    font-weight: bold;
     ${props => props.clicked && css`
         scale: 0.9;
         border-color: red;
@@ -233,6 +234,7 @@ export const SuperJumpButton=styled.button`
     background: red;
     width: 8vw;
     height: 6vw;
+    font-weight: bold;
     ${props => props.clicked && css`
         scale: 0.9;
         border-color: red;

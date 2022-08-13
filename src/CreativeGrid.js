@@ -2,10 +2,12 @@ import { useEffect, useState, useReducer } from 'react';
 import ManagePlayer from './ManagePlayer';
 import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './LevelHandling';
 
-export default function CreativeGrid({gridSize, player, finished, superJump, switchClockwise, selectedBox, dispatch}){
+export default function CreativeGrid({gridSize, player, finished, selectedBox, dispatch}){
     const [boxes, setBoxes] = useState([]);
     const [walls, setWalls] = useState([]);
     const [goal, setGoal] = useState({});
+    const [superJump, setSuperJump] = useState([]);
+    const [switchClockwise, setSwitchClockwise] = useState([]);
     function handleChangeBox({selectedBox, koorX, koorY}){
         if(selectedBox === 'wall'){
             setWalls([...walls, {koorX, koorY}]);
@@ -20,6 +22,13 @@ export default function CreativeGrid({gridSize, player, finished, superJump, swi
                 koorY
             })
         }
+        if(selectedBox === 'superJump'){
+            setSuperJump([...superJump, {koorX, koorY}]);
+        }
+        console.log(selectedBox);
+        if(selectedBox === 'clockwise'){
+            setSwitchClockwise([...switchClockwise, {koorX, koorY}]);
+        }
     }
     function boxType({type, id, koorX, koorY}){
         if(type === 'player')return(<PlayerBox gridSize={gridSize} key={id}>You</PlayerBox>);
@@ -28,7 +37,7 @@ export default function CreativeGrid({gridSize, player, finished, superJump, swi
         else if(type === 'superJump')return(<SuperJumpBox gridSize={gridSize} key={id}>2X</SuperJumpBox>);
         else if(type === 'switchClockwise')return(<ClockwiseBox gridSize={gridSize} key={id}></ClockwiseBox>);
         else if(type === 'finished')return(<FinishBox key={id}/>);
-        else  return(<EmptyBox onClick={() => handleChangeBox({selectedBox, koorX, koorY})}key={id} />)
+        else  return(<EmptyBox onClick={() => handleChangeBox({selectedBox, koorX, koorY})} key={id} />)
     }
     //too inefficient to move players
     useEffect(() => {

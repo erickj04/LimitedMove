@@ -15,8 +15,6 @@ export default function Creative({creativeMode, setCreativeMode}){
     stepRemaining: {leftStep: 0, rightStep: 0, upStep: 0, downStep: 0}
   };
   const [gridSize, setGridSize] = useState(null);
-  const superJump = [];
-  const switchClockwise = [];
   const finished = false;
   const [player, dispatch] = useReducer(
     ManagePlayer,
@@ -39,7 +37,7 @@ export default function Creative({creativeMode, setCreativeMode}){
     <div>
         <h2>CREATIVE MODE</h2>
         <GameSpot>
-          <CreativeGrid gridSize={gridSize} player={player} finished={finished} superJump={superJump} switchClockwise={switchClockwise} selectedBox={selectedBox} dispatch={dispatch} />
+          <CreativeGrid gridSize={gridSize} player={player} finished={finished} selectedBox={selectedBox} dispatch={dispatch} />
           <RightSide>
             <ChooseBoxType selectedBox={selectedBox} setSelectedBox={setSelectedBox}/>
             <InputSize placeholder='Input Grid Size (MAX 30)' value={gridSize} onChange={(e) => handleInputGridSize(e)}/>
