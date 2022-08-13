@@ -1,4 +1,4 @@
-import { WallButton, PlayerButton, GoalButton, ClockwiseButton} from './LevelHandling';
+import { WallButton, PlayerButton, GoalButton, ClockwiseButton, SuperJumpButton} from './LevelHandling';
 import { useState } from 'react';
 import { CreativeContainer } from './LevelHandling';
 export default function ChooseBoxType(){
@@ -12,6 +12,7 @@ export default function ChooseBoxType(){
             {selectedBox === 'player' ? <PlayerButton clicked>You</PlayerButton>: <PlayerButton onClick={() => handleSelectedBox('player')}>You</PlayerButton>}
             {selectedBox === 'goal' ? <GoalButton clicked>Goal</GoalButton>: <GoalButton onClick={() => handleSelectedBox('goal')}>Goal</GoalButton>}
             {selectedBox === 'clockwise' ? <ClockwiseButton clicked /> : <ClockwiseButton onClick={() => handleSelectedBox('clockwise')} />}
+            {selectedBox === 'superJump' ? <SuperJumpButton clicked>2X</SuperJumpButton>: <SuperJumpButton onClick={() => handleSelectedBox('superJump')}>2X</SuperJumpButton>}
         </CreativeContainer>
     )
 }

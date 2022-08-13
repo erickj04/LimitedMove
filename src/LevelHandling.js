@@ -226,9 +226,23 @@ export const GoalButton=styled.button`
         border-style: solid;
     `}
 `
+export const SuperJumpButton=styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: red;
+    width: 8vw;
+    height: 6vw;
+    ${props => props.clicked && css`
+        scale: 0.9;
+        border-color: red;
+        border-style: solid;
+    `}
+`
 export const CreativeContainer = styled.div`
     display: flex;
-    padding: 1vw;
+    padding: 1vw 5vw;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 1vw;
