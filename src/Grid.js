@@ -42,7 +42,7 @@ export default function Grid(){
                 else if(finished){
                     type = 'finished';
                 }
-                newBoxes[i].push({type: type, id:nextId, koorX: j, koorY: i});
+                newBoxes[i].push({type: type, id:nextId});
                 nextId++;
             }
         }

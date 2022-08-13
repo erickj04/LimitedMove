@@ -8,15 +8,12 @@ import CreativeGrid from './CreativeGrid';
 import { GameSpot, Button, RightSide, Container, useContextGame, InputSize } from "./LevelHandling";
 
 export default function Creative({creativeMode, setCreativeMode}){
-  const [boxes, setBoxes] = useState([]);
   const {moveDirection} = useContextGame();
-  const initialBody = {
+  const initialBody= {
     position:{koorX: 0, koorY: 0},
     stepRange: 1,
     stepRemaining: {leftStep: 0, rightStep: 0, upStep: 0, downStep: 0}
-  }
-  const walls = [];
-  const goal = {koorX: 0, koorY: 0};
+  };
   const [gridSize, setGridSize] = useState(null);
   const superJump = [];
   const switchClockwise = [];
@@ -32,12 +29,6 @@ export default function Creative({creativeMode, setCreativeMode}){
       document.removeEventListener('keydown', moveDirection);
     }
   });
-  function handleClickReset(){
-    dispatch({
-      type: 'reset',
-      initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
-    })
-  }
   function handleCreativeMode(){
     setCreativeMode(!creativeMode);
   }
@@ -48,12 +39,11 @@ export default function Creative({creativeMode, setCreativeMode}){
     <div>
         <h2>CREATIVE MODE</h2>
         <GameSpot>
-          <CreativeGrid gridSize={gridSize} player={player} finished={finished} walls={walls} goal={goal} superJump={superJump} switchClockwise={switchClockwise} selectedBox={selectedBox}/>
+          <CreativeGrid gridSize={gridSize} player={player} finished={finished} superJump={superJump} switchClockwise={switchClockwise} selectedBox={selectedBox} dispatch={dispatch} />
           <RightSide>
             <ChooseBoxType selectedBox={selectedBox} setSelectedBox={setSelectedBox}/>
             <InputSize placeholder='Input Grid Size (MAX 30)' value={gridSize} onChange={(e) => handleInputGridSize(e)}/>
             <ShowMessage player={player}/>
-            <Button onClick={handleClickReset}> RESET </Button>
             {!creativeMode ? <Button onClick={handleCreativeMode}> CREATIVE MODE </Button> : <Button onClick={handleCreativeMode}> CAMPAIGN </Button>}
           </RightSide>
         </GameSpot>

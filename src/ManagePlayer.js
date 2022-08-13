@@ -46,6 +46,12 @@ export default function ManagePlayer(player, action){
         case 'reset': {
             return {...action.initialBody};
         }
+        case 'spawnPlayer': {
+            return {
+                ...player,
+                position: {koorX: action.koorX, koorY: action.koorY}
+            }
+        }
         default: {
             console.log('WHAT!');
         }

@@ -2,16 +2,33 @@ import { useEffect, useState, useReducer } from 'react';
 import ManagePlayer from './ManagePlayer';
 import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './LevelHandling';
 
-export default function CreativeGrid({gridSize, player, finished, walls, goal, superJump, switchClockwise, selectedBox}){
+export default function CreativeGrid({gridSize, player, finished, superJump, switchClockwise, selectedBox, dispatch}){
     const [boxes, setBoxes] = useState([]);
-    function boxType({type, id}){
+    const [walls, setWalls] = useState([]);
+    const [goal, setGoal] = useState({});
+    function handleChangeBox({selectedBox, koorX, koorY}){
+        if(selectedBox === 'wall'){
+            setWalls([...walls, {koorX, koorY}]);
+        }
+        if(selectedBox === 'goal'){
+            setGoal({koorX, koorY});
+        }
+        if(selectedBox === 'player'){
+            dispatch({
+                type: 'spawnPlayer',
+                koorX,
+                koorY
+            })
+        }
+    }
+    function boxType({type, id, koorX, koorY}){
         if(type === 'player')return(<PlayerBox gridSize={gridSize} key={id}>You</PlayerBox>);
         else if(type === 'wall')return(<WallBox key={id} />);
         else if(type === 'goal')return(<GoalBox gridSize={gridSize} key={id}>Goal</GoalBox>);
         else if(type === 'superJump')return(<SuperJumpBox gridSize={gridSize} key={id}>2X</SuperJumpBox>);
         else if(type === 'switchClockwise')return(<ClockwiseBox gridSize={gridSize} key={id}></ClockwiseBox>);
         else if(type === 'finished')return(<FinishBox key={id}/>);
-        else  return(<EmptyBox key={id}/>)
+        else  return(<EmptyBox onClick={() => handleChangeBox({selectedBox, koorX, koorY})}key={id} />)
     }
     //too inefficient to move players
     useEffect(() => {
@@ -45,13 +62,12 @@ export default function CreativeGrid({gridSize, player, finished, walls, goal, s
             }
         }
         setBoxes(newBoxes);
-    }, [player, gridSize, finished, walls, goal, superJump, switchClockwise]);
+    }, [player, gridSize, walls, goal, superJump, switchClockwise]);
     return(
         <Container>
             {boxes.map((row, i)=> {
-                    console.log('yay');
                     return(<Baris key={i}>
-                        {row.map(box => boxType({type: box.type, id:box.id}))}
+                        {row.map(box => boxType({type: box.type, id:box.id, koorX: box.koorX, koorY: box.koorY}))}
                     </Baris>)
                 })
             }

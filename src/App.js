@@ -6,7 +6,7 @@ export default function App() {
   const [creativeMode, setCreativeMode] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(0);
   return (
-    <ContextProvider currentLevel={currentLevel} setCurrentLevel={setCurrentLevel}>
+    <ContextProvider currentLevel={currentLevel} setCurrentLevel={setCurrentLevel} creativeMode={creativeMode}>
       {!creativeMode ? 
         <Campaign creativeMode={creativeMode} setCreativeMode={setCreativeMode} currentLevel={currentLevel}/>
       :
