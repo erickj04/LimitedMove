@@ -1,12 +1,13 @@
 import { createContext, useContext } from "react";
 import { levels } from './Levels';
 import * as React from 'react';
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import ManagePlayer from "./ManagePlayer";
 import { useReducer } from "react";
 import WallIcon from './Wall.jpg';
 import ClockwiseIcon from './Clockwise.svg';
 import FinishPicture from './Finish.jpg';
+
 export const useContextGame = () => useContext(ContextGame);
 const ContextGame = createContext(null);
 export function ContextProvider({children, currentLevel, setCurrentLevel}){
@@ -21,7 +22,6 @@ export function ContextProvider({children, currentLevel, setCurrentLevel}){
         ManagePlayer,
         {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
     );
-
     function moveDirection(e){
         function isPossible({nextPlace, can}){
             if(walls.find(wall => wall.koorX === nextPlace.koorX && wall.koorY === nextPlace.koorY))can = false;
@@ -84,8 +84,14 @@ export function ContextProvider({children, currentLevel, setCurrentLevel}){
             }
         }
     }
+    function handleClickReset(){
+        dispatch({
+          type: 'reset',
+          initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
+        })
+    }
     return(
-        <ContextGame.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, currentLevel, setCurrentLevel, moveDirection}}>
+        <ContextGame.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, currentLevel, setCurrentLevel, moveDirection, handleClickReset}}>
             {children}
         </ContextGame.Provider>
     )
@@ -174,4 +180,62 @@ export const WallButton=styled.button`
     height: 6vw;
     background-image: url(${WallIcon});
     background-size: cover;
+    ${props => props.clicked && css`
+        scale: 0.9;
+        border-color: red;
+        border-style: solid;
+    `}
+`
+export const ClockwiseButton=styled.button`
+    display: flex;
+    width: 8vw;
+    height: 6vw;
+    background-image: url(${ClockwiseIcon});
+    background-size: cover;
+    background-color: cyan;
+    ${props => props.clicked && css`
+        scale: 0.9;
+        border-color: red;
+        border-style: solid;
+    `}
+`
+export const PlayerButton=styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: green;
+    font-weight: bold;
+    width: 8vw;
+    height: 6vw;
+    ${props => props.clicked && css`
+        scale: 0.9;
+        border-color: red;
+        border-style: solid;
+    `}
+`
+export const GoalButton=styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: gold;
+    width: 8vw;
+    height: 6vw;
+    ${props => props.clicked && css`
+        scale: 0.9;
+        border-color: red;
+        border-style: solid;
+    `}
+`
+export const CreativeContainer = styled.div`
+    display: flex;
+    padding: 1vw;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+    border-width: 1vw;
+    border-color: black;
+    border-style: solid;
+    box-sizing: border-box;
+    width: 45vw;
+    height: 18vw;
 `

@@ -30,7 +30,6 @@ export default function Creative({creativeMode, setCreativeMode}){
       document.removeEventListener('keydown', moveDirection);
     }
   });
-  
   function handleClickReset(){
     dispatch({
       type: 'reset',
@@ -39,13 +38,12 @@ export default function Creative({creativeMode, setCreativeMode}){
   }
   function handleCreativeMode(){
     setCreativeMode(!creativeMode);
-}
+  }
   return(
     <div>
         <h2>CREATIVE MODE</h2>
         <GameSpot>
           <Container />
-          {/* <button onClick={handleClickReset}> RESET </button> */}
           <RightSide>
             <ChooseBoxType />
             <ShowMessage player={player}/>

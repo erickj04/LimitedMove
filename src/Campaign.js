@@ -1,24 +1,17 @@
-import Grid from "./createGrid";
+import Grid from "./Grid";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import ShowMessage from './ShowMessage.js';
 import {GameSpot, Button, RightSide, useContextGame} from "./LevelHandling";
 
 export default function Campaign({creativeMode, setCreativeMode}){
-  const [boxes, setBoxes] = useState([]);
-  const {initialBody, player, dispatch, moveDirection} = useContextGame();
+  const {player, moveDirection, handleClickReset} = useContextGame();
   useEffect(() => {
     document.addEventListener('keydown', moveDirection);
     return () => {
       document.removeEventListener('keydown', moveDirection);
     }
   });
-  function handleClickReset(){
-    dispatch({
-      type: 'reset',
-      initialBody: {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
-    })
-  }
   function handleCreativeMode(){
     setCreativeMode(!creativeMode);
   }
@@ -26,7 +19,7 @@ export default function Campaign({creativeMode, setCreativeMode}){
     <div>
         <h2>CAMPAIGN</h2>
         <GameSpot>
-          <Grid player={player} boxes={boxes} setBoxes={setBoxes} />
+          <Grid player={player} />
           <RightSide>
             <ShowMessage player={player}/>
             <Button onClick={handleClickReset}> RESET </Button>

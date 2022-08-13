@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useContextGame } from "./LevelHandling";
 import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './LevelHandling';
 
-export default function Grid({boxes, setBoxes}){
+export default function Grid(){
+    const [boxes, setBoxes] = useState([]);
     const {gridSize, walls, goal, superJump, switchClockwise, finished, player} = useContextGame();
     function boxType({type, id}){
         if(type === 'player')return(<PlayerBox gridSize={gridSize} key={id}>You</PlayerBox>);
