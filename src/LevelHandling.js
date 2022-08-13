@@ -241,6 +241,19 @@ export const SuperJumpButton=styled.button`
         border-style: solid;
     `}
 `
+export const DeleteButton=styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8vw;
+    height: 6vw;
+    font-weight: bold;
+    ${props => props.clicked && css`
+        scale: 0.9;
+        border-color: red;
+        border-style: solid;
+    `}
+`
 export const CreativeContainer = styled.div`
     display: flex;
     padding: 1vw 5vw;

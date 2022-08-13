@@ -8,7 +8,7 @@ export default function CreativeGrid({gridSize, player, finished, selectedBox, d
     const [goal, setGoal] = useState({});
     const [superJump, setSuperJump] = useState([]);
     const [switchClockwise, setSwitchClockwise] = useState([]);
-    function handleChangeBox({selectedBox, koorX, koorY}){
+    function handleChangeBox({koorX, koorY}){
         if(selectedBox === 'wall'){
             setWalls([...walls, {koorX, koorY}]);
         }
@@ -30,14 +30,36 @@ export default function CreativeGrid({gridSize, player, finished, selectedBox, d
             setSwitchClockwise([...switchClockwise, {koorX, koorY}]);
         }
     }
+    function HandleDeleteBox({targetBox, koorX, koorY}){
+        
+        if(selectedBox === 'delete'){
+            if(targetBox === 'player'){
+                dispatch({
+                    type: 'deletePlayer'
+                })
+            }
+            if(targetBox === 'wall'){
+                setWalls(walls.filter(wall => wall.koorX !== koorX || wall.koorY !== koorY));
+            }
+            if(targetBox === 'goal'){
+                setGoal({});
+            }
+            if(targetBox === 'superJump'){
+                setSuperJump(superJump.filter(sp => sp.koorX !== koorX || sp.koorY !== koorY))
+            }
+            if(targetBox === 'clockwise'){
+                setSwitchClockwise(switchClockwise.filter(clockwise => clockwise.koorX !== koorX || clockwise.koorY !== koorY))
+            }
+        }
+    }
     function boxType({type, id, koorX, koorY}){
-        if(type === 'player')return(<PlayerBox gridSize={gridSize} key={id}>You</PlayerBox>);
-        else if(type === 'wall')return(<WallBox key={id} />);
-        else if(type === 'goal')return(<GoalBox gridSize={gridSize} key={id}>Goal</GoalBox>);
-        else if(type === 'superJump')return(<SuperJumpBox gridSize={gridSize} key={id}>2X</SuperJumpBox>);
+        if(type === 'player')return(<PlayerBox onClick = {() => HandleDeleteBox({targetBox: 'player', koorX, koorY})} gridSize={gridSize} key={id}>You</PlayerBox>);
+        else if(type === 'wall')return(<WallBox onClick = {() => HandleDeleteBox({targetBox: 'wall', koorX, koorY})} key={id} />);
+        else if(type === 'goal')return(<GoalBox onClick = {() => HandleDeleteBox({targetBox: 'goal', koorX, koorY})} gridSize={gridSize} key={id}>Goal</GoalBox>);
+        else if(type === 'superJump')return(<SuperJumpBox onClick = {() => HandleDeleteBox({targetBox: 'superJump', koorX, koorY})} gridSize={gridSize} key={id}>2X</SuperJumpBox>);
         else if(type === 'switchClockwise')return(<ClockwiseBox gridSize={gridSize} key={id}></ClockwiseBox>);
         else if(type === 'finished')return(<FinishBox key={id}/>);
-        else  return(<EmptyBox onClick={() => handleChangeBox({selectedBox, koorX, koorY})} key={id} />)
+        else  return(<EmptyBox onClick={() => handleChangeBox({koorX, koorY})} key={id} />)
     }
     //too inefficient to move players
     useEffect(() => {

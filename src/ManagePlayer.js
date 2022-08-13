@@ -52,6 +52,12 @@ export default function ManagePlayer(player, action){
                 position: {koorX: action.koorX, koorY: action.koorY}
             }
         }
+        case 'deletePlayer': {
+            return {
+                ...player,
+                position: {koorX: 0, koorY: 0}
+            }
+        }
         default: {
             console.log('WHAT!');
         }
