@@ -1,6 +1,4 @@
-import { WallButton, PlayerButton, GoalButton, ClockwiseButton, SuperJumpButton, DeleteButton} from './LevelHandling';
-import { useState } from 'react';
-import { CreativeContainer } from './LevelHandling';
+import { WallButton, PlayerButton, GoalButton, ClockwiseButton, SuperJumpButton, DeleteButton, CreativeContainer} from './StyledComponents';
 export default function ChooseBoxType({selectedBox, setSelectedBox}){
     function handleSelectedBox(type){
         setSelectedBox(type);

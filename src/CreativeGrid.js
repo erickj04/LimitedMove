@@ -1,13 +1,10 @@
 import { useEffect, useState, useReducer } from 'react';
-import ManagePlayer from './ManagePlayer';
-import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './LevelHandling';
+import { useCreativeContext } from './CreativeHandling';
+import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './StyledComponents';
 
-export default function CreativeGrid({gridSize, player, finished, selectedBox, dispatch}){
+export default function CreativeGrid(){
+    const {gridSize, player, finished, selectedBox, dispatch, walls, goal, superJump, switchClockwise, setWalls, setGoal, setSuperJump, setSwitchClockwise} = useCreativeContext();
     const [boxes, setBoxes] = useState([]);
-    const [walls, setWalls] = useState([]);
-    const [goal, setGoal] = useState({});
-    const [superJump, setSuperJump] = useState([]);
-    const [switchClockwise, setSwitchClockwise] = useState([]);
     function handleChangeBox({koorX, koorY}){
         if(selectedBox === 'wall'){
             setWalls([...walls, {koorX, koorY}]);
@@ -53,12 +50,12 @@ export default function CreativeGrid({gridSize, player, finished, selectedBox, d
         }
     }
     function boxType({type, id, koorX, koorY}){
-        if(type === 'player')return(<PlayerBox onClick = {() => HandleDeleteBox({targetBox: 'player', koorX, koorY})} gridSize={gridSize} key={id}>You</PlayerBox>);
+        if(type === 'finished')return(<FinishBox key={id}/>);
+        else if(type === 'player')return(<PlayerBox onClick = {() => HandleDeleteBox({targetBox: 'player', koorX, koorY})} gridSize={gridSize} key={id}>You</PlayerBox>);
         else if(type === 'wall')return(<WallBox onClick = {() => HandleDeleteBox({targetBox: 'wall', koorX, koorY})} key={id} />);
         else if(type === 'goal')return(<GoalBox onClick = {() => HandleDeleteBox({targetBox: 'goal', koorX, koorY})} gridSize={gridSize} key={id}>Goal</GoalBox>);
         else if(type === 'superJump')return(<SuperJumpBox onClick = {() => HandleDeleteBox({targetBox: 'superJump', koorX, koorY})} gridSize={gridSize} key={id}>2X</SuperJumpBox>);
         else if(type === 'switchClockwise')return(<ClockwiseBox gridSize={gridSize} key={id}></ClockwiseBox>);
-        else if(type === 'finished')return(<FinishBox key={id}/>);
         else  return(<EmptyBox onClick={() => handleChangeBox({koorX, koorY})} key={id} />)
     }
     //too inefficient to move players

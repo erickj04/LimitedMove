@@ -1,8 +1,8 @@
 import Grid from "./Grid";
 import { useEffect } from 'react';
 import ShowMessage from './ShowMessage.js';
-import {GameSpot, Button, RightSide, useContextGame} from "./LevelHandling";
-
+import { useContextGame} from "./LevelHandling";
+import {GameSpot, Button, RightSide} from './StyledComponents';
 export default function Campaign({creativeMode, setCreativeMode}){
   const {player, moveDirection, handleClickReset} = useContextGame();
   useEffect(() => {

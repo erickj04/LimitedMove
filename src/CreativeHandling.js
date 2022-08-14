@@ -1,19 +1,23 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { levels } from './Levels';
 import * as React from 'react';
 import ManagePlayer from "./ManagePlayer";
 import { useReducer } from "react";
 
-export const useContextGame = () => useContext(ContextGame);
-const ContextGame = createContext(null);
-export function ContextProvider({children, currentLevel, setCurrentLevel}){
-    const initialBody = levels[currentLevel].initialBody;
-    const walls = levels[currentLevel].walls;
-    const goal = levels[currentLevel].goal;
-    const gridSize = levels[currentLevel].gridSize;
-    const superJump = levels[currentLevel].superJump;
-    const switchClockwise = levels[currentLevel].switchClockwise;
-    const finished = levels[currentLevel].finished;
+export const useCreativeContext = () => useContext(CreativeContext);
+const CreativeContext = createContext(null);
+export function CreativeContextProvider({children, selectedBox, setSelectedBox}){
+    const initialBody = {
+        position:{koorX: 0, koorY: 0},
+        stepRange: 1,
+        stepRemaining: {leftStep: 100, rightStep: 100, upStep: 100, downStep: 100}
+    };
+    const [gridSize, setGridSize] = useState(null);
+    const [walls, setWalls] = useState([]);
+    const [goal, setGoal] = useState({});
+    const [superJump, setSuperJump] = useState([]);
+    const [switchClockwise, setSwitchClockwise] = useState([]);
+    const finished = false;
     const [player, dispatch] = useReducer(
         ManagePlayer,
         {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
@@ -65,12 +69,9 @@ export function ContextProvider({children, currentLevel, setCurrentLevel}){
             }
             nextPlace.koorX += dx;
             nextPlace.koorY += dy;
+            console.log(can);
             if(isGoal({nextPlace, can})){
-                setCurrentLevel(currentLevel + 1);
-                dispatch({
-                    type: 'reset',
-                    initialBody: {position: {...levels[currentLevel + 1].initialBody.position}, stepRemaining: {...levels[currentLevel + 1].initialBody.stepRemaining}, stepRange: levels[currentLevel + 1].initialBody.stepRange}
-                });
+                finished = true;
             }
             else if(isPossible({nextPlace, can})){
                 console.log('still works');
@@ -91,8 +92,8 @@ export function ContextProvider({children, currentLevel, setCurrentLevel}){
     }
 
     return(
-        <ContextGame.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, currentLevel, setCurrentLevel, moveDirection, handleClickReset}}>
+        <CreativeContext.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, moveDirection, handleClickReset, setGoal, setGridSize, setSuperJump, setSwitchClockwise, setWalls, selectedBox, setSelectedBox}}>
             {children}
-        </ContextGame.Provider>
+        </CreativeContext.Provider>
     )
 }
