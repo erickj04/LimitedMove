@@ -22,8 +22,8 @@ export default function Creative({creativeMode, setCreativeMode}){
     setFinished(false);
     dispatch({
       type: 'spawnPlayer',
-      koorX: initialBody.position.koorX,
-      koorY: initialBody.position.koorY
+      position: {...initialBody.position},
+      stepRemaining: {...initialBody.stepRemaining}
     });
   }
   return(

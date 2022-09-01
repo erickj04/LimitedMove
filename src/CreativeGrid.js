@@ -13,17 +13,17 @@ export default function CreativeGrid(){
             setGoal({koorX, koorY});
         }
         if(selectedBox === 'player'){
-            dispatch({
-                type: 'spawnPlayer',
-                koorX,
-                koorY
-            });
             setInitialBody({
                 ...initialBody,
                 position:{
                     koorX,
                     koorY
                 }
+            });
+            dispatch({
+                type: 'spawnPlayer',
+                position: {koorX, koorY},
+                stepRemaining: {...initialBody.stepRemaining}
             });
         }
         if(selectedBox === 'superJump'){

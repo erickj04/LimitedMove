@@ -49,7 +49,8 @@ export default function ManagePlayer(player, action){
         case 'spawnPlayer': {
             return {
                 ...player,
-                position: {koorX: action.koorX, koorY: action.koorY}
+                position: {...action.position},
+                stepRemaining: {...action.stepRemaining}
             }
         }
         case 'deletePlayer': {
