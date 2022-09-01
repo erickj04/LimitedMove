@@ -36,6 +36,10 @@ export default function CreativeGrid(){
     function HandleDeleteBox({targetBox, koorX, koorY}){
         if(selectedBox === 'delete'){
             if(targetBox === 'player'){
+                setInitialBody({
+                    ...initialBody,
+                    position:{koorX: 0, koorY: 0}
+                });
                 dispatch({
                     type: 'deletePlayer'
                 })
