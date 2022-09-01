@@ -59,6 +59,46 @@ export default function ManagePlayer(player, action){
                 position: {koorX: 0, koorY: 0}
             }
         }
+        case 'inputStep': {
+            switch(action.stepType){
+                case 'up':{
+                    return{
+                        ...player,
+                        stepRemaining:{
+                            ...player.stepRemaining,
+                            upStep: action.value
+                        }
+                    }
+                }
+                case 'right':{
+                    return{
+                        ...player,
+                        stepRemaining:{
+                            ...player.stepRemaining,
+                            downStep: action.value
+                        }
+                    }
+                }
+                case 'down':{
+                    return{
+                        ...player,
+                        stepRemaining:{
+                            ...player.stepRemaining,
+                            downStep: action.value
+                        }
+                    }
+                }
+                case 'left':{
+                    return{
+                        ...player,
+                        stepRemaining:{
+                            ...player.stepRemaining,
+                            leftStep: action.value
+                        }
+                    }
+                }
+            }
+        }
         default: {
             console.log('WHAT!');
         }

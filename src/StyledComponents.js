@@ -176,4 +176,14 @@ export const CreativeContainer = styled.div`
 `
 export const InputSize = styled.input`
     width: 30vw;
+    margin: 0.1vw 0;
+`
+export const InputStep = styled.input`
+    width: 5vw;
+    margin: 0.1vw 0;
+`
+export const Title = styled.div`
+    font-size: 1.5vw;
+    font-weight: bold;
+    margin: 0.2vw 0;
 `

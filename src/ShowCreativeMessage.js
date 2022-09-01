@@ -1,18 +1,23 @@
 import { useCreativeContext } from './CreativeHandling';
+import { InputStep, Title } from './StyledComponents';
 export default function ShowCreativeMessage(){
     const {player} = useCreativeContext();
     return(
         <div>
-            <h2>Remaining Moves</h2>
-            {`(press w) up: ${player.stepRemaining.upStep}`}
+            <Title>Remaining Moves</Title>
+            {`(press w) up: `}
+            <InputStep></InputStep>
             <br/>
-            {`(press d) right: ${player.stepRemaining.rightStep}`}
+            {`(press d) right: `}
+            <InputStep></InputStep>
             <br />
-            {`(press s) down: ${player.stepRemaining.downStep}`}
+            {`(press s) down: `}
+            <InputStep></InputStep>
             <br />
-            {`(press a) left: ${player.stepRemaining.leftStep}`}
+            {`(press a) left: `}
+            <InputStep></InputStep>
             <br />
-            <h2>{'Box Infos:'}</h2>
+            <Title>Box Infos:</Title>
             {'Green Box: You'}
             <br />
             {'Gold Box: Your Goal'}

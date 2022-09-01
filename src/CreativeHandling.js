@@ -81,7 +81,22 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
             }
         }
     }
-
+    function handleClickClear(){
+        setFinished(false);
+        setGoal({});
+        setInitialBody({
+            position:{koorX: 0, koorY: 0},
+            stepRange: 1,
+            //remember to change to 0
+            stepRemaining: {leftStep: 5, rightStep: 5, upStep: 5, downStep: 5}
+        })
+        setSuperJump([]);
+        setSwitchClockwise([]);
+        setWalls([]);
+        dispatch({
+            type: 'deletePlayer'
+        })
+    }
     function handleClickReset(){
         dispatch({
           type: 'reset',
@@ -90,7 +105,7 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
     }
 
     return(
-        <CreativeContext.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, moveDirection, handleClickReset, setGoal, setGridSize, setSuperJump, setSwitchClockwise, setWalls, setFinished, setInitialBody, selectedBox, setSelectedBox}}>
+        <CreativeContext.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, moveDirection, handleClickReset, setGoal, setGridSize, setSuperJump, setSwitchClockwise, setWalls, setFinished, setInitialBody, selectedBox, setSelectedBox, handleClickClear}}>
             {children}
         </CreativeContext.Provider>
     )

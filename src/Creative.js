@@ -5,7 +5,7 @@ import CreativeGrid from './CreativeGrid';
 import {GameSpot, Button, RightSide, InputSize} from './StyledComponents'; 
 import { useCreativeContext } from './CreativeHandling';
 export default function Creative({creativeMode, setCreativeMode}){
-  const {gridSize, setGridSize, finished, player, dispatch, selectedBox, setSelectedBox, moveDirection, setFinished, initialBody} = useCreativeContext();
+  const {gridSize, setGridSize, finished, player, dispatch, selectedBox, setSelectedBox, moveDirection, setFinished, initialBody, handleClickClear} = useCreativeContext();
   useEffect(() => {
     document.addEventListener('keydown', moveDirection);
     return () => {
@@ -35,6 +35,7 @@ export default function Creative({creativeMode, setCreativeMode}){
             <ChooseBoxType selectedBox={selectedBox} setSelectedBox={setSelectedBox}/>
             <InputSize placeholder='Input Grid Size (MAX 30)' value={gridSize} onChange={(e) => handleInputGridSize(e)}/>
             <ShowCreativeMessage />
+            <Button onClick={handleClickClear}>CLEAR</Button>
             <Button onClick={handleStartNewGame}>START NEW GAME</Button>
             {!creativeMode ? <Button onClick={handleCreativeMode}> CREATIVE MODE </Button> : <Button onClick={handleCreativeMode}> CAMPAIGN </Button>}
           </RightSide>
