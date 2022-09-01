@@ -1,9 +1,9 @@
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState } from 'react';
 import { useCreativeContext } from './CreativeHandling';
 import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './StyledComponents';
 
 export default function CreativeGrid(){
-    const {gridSize, player, finished, selectedBox, dispatch, walls, goal, superJump, switchClockwise, setWalls, setGoal, setSuperJump, setSwitchClockwise} = useCreativeContext();
+    const {gridSize, player, finished, selectedBox, dispatch, walls, goal, superJump, switchClockwise, setWalls, setGoal, setSuperJump, setSwitchClockwise, setInitialBody, initialBody} = useCreativeContext();
     const [boxes, setBoxes] = useState([]);
     function handleChangeBox({koorX, koorY}){
         if(selectedBox === 'wall'){
@@ -17,18 +17,23 @@ export default function CreativeGrid(){
                 type: 'spawnPlayer',
                 koorX,
                 koorY
-            })
+            });
+            setInitialBody({
+                ...initialBody,
+                position:{
+                    koorX,
+                    koorY
+                }
+            });
         }
         if(selectedBox === 'superJump'){
             setSuperJump([...superJump, {koorX, koorY}]);
         }
-        console.log(selectedBox);
         if(selectedBox === 'clockwise'){
             setSwitchClockwise([...switchClockwise, {koorX, koorY}]);
         }
     }
     function HandleDeleteBox({targetBox, koorX, koorY}){
-        
         if(selectedBox === 'delete'){
             if(targetBox === 'player'){
                 dispatch({
@@ -67,7 +72,10 @@ export default function CreativeGrid(){
             for(let j = 1 ; j <= gridSize ; j++){
                 let now = {koorX: j, koorY: i};
                 let type = 'empty';
-                if(player.position.koorX === now.koorX && player.position.koorY === now.koorY){
+                if(finished){
+                    type = 'finished';
+                }
+                else if(player.position.koorX === now.koorX && player.position.koorY === now.koorY){
                     type = 'player';
                 }
                 else if(walls.find(wall => wall.koorX === now.koorX && wall.koorY === now.koorY)){
@@ -82,15 +90,13 @@ export default function CreativeGrid(){
                 else if(switchClockwise.find(clockwise => clockwise.koorX === now.koorX && clockwise.koorY === now.koorY)){
                     type = 'switchClockwise';
                 }
-                else if(finished){
-                    type = 'finished';
-                }
                 newBoxes[i].push({type: type, id:nextId, koorX: j, koorY: i});
                 nextId++;
             }
         }
-        setBoxes(newBoxes);
-    }, [player, gridSize, walls, goal, superJump, switchClockwise]);
+        if(finished)setBoxes([[{type: 'finished', id:0, koorX: 1, koorY: 1}]]);
+        else setBoxes(newBoxes);
+    }, [player, gridSize, walls, goal, superJump, switchClockwise, finished]);
     return(
         <Container>
             {boxes.map((row, i)=> {

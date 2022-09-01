@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { levels } from './Levels';
 import * as React from 'react';
 import ManagePlayer from "./ManagePlayer";
 import { useReducer } from "react";
@@ -7,29 +6,28 @@ import { useReducer } from "react";
 export const useCreativeContext = () => useContext(CreativeContext);
 const CreativeContext = createContext(null);
 export function CreativeContextProvider({children, selectedBox, setSelectedBox}){
-    const initialBody = {
+    const [initialBody, setInitialBody]= useState({
         position:{koorX: 0, koorY: 0},
         stepRange: 1,
-        stepRemaining: {leftStep: 100, rightStep: 100, upStep: 100, downStep: 100}
-    };
+        stepRemaining: {leftStep: 5, rightStep: 5, upStep: 5, downStep: 5}
+    });
     const [gridSize, setGridSize] = useState(null);
     const [walls, setWalls] = useState([]);
     const [goal, setGoal] = useState({});
     const [superJump, setSuperJump] = useState([]);
     const [switchClockwise, setSwitchClockwise] = useState([]);
-    const finished = false;
+    const [finished, setFinished] = useState(false);
     const [player, dispatch] = useReducer(
         ManagePlayer,
         {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
     );
-
     function moveDirection(e){
         function isPossible({nextPlace, can}){
             if(walls.find(wall => wall.koorX === nextPlace.koorX && wall.koorY === nextPlace.koorY))can = false;
             return nextPlace.koorX > 0 && nextPlace.koorX  <= gridSize && nextPlace.koorY > 0 && nextPlace.koorY <= gridSize && can;
         }
-        function isGoal({nextPlace, can}){
-            return nextPlace.koorX === goal.koorX && nextPlace.koorY === goal.koorY & can;
+        function isGoal({nextPlace}){
+            return nextPlace.koorX === goal.koorX && nextPlace.koorY === goal.koorY;
         }
         function isSuperJump({nextPlace}){
             return superJump.find(twoTimes => twoTimes.koorX === nextPlace.koorX && twoTimes.koorY === nextPlace.koorY)
@@ -70,15 +68,15 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
             nextPlace.koorX += dx;
             nextPlace.koorY += dy;
             console.log(can);
-            if(isGoal({nextPlace, can})){
-                finished = true;
-            }
-            else if(isPossible({nextPlace, can})){
+            if(isPossible({nextPlace, can})){
                 console.log('still works');
                 dispatch({
                     type: 'movePlayer',
                     direction: direction
                 });
+                if(isGoal({nextPlace})){
+                    setFinished(true);
+                }
                 isSpecialBox({nextPlace});
             }
         }
@@ -92,7 +90,7 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
     }
 
     return(
-        <CreativeContext.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, moveDirection, handleClickReset, setGoal, setGridSize, setSuperJump, setSwitchClockwise, setWalls, selectedBox, setSelectedBox}}>
+        <CreativeContext.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, moveDirection, handleClickReset, setGoal, setGridSize, setSuperJump, setSwitchClockwise, setWalls, setFinished, setInitialBody, selectedBox, setSelectedBox}}>
             {children}
         </CreativeContext.Provider>
     )
