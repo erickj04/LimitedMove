@@ -19,7 +19,7 @@ export default function CreativeGrid(){
                     koorX,
                     koorY
                 }
-            });
+            }); 
             dispatch({
                 type: 'spawnPlayer',
                 position: {koorX, koorY},

@@ -59,14 +59,14 @@ export default function ManagePlayer(player, action){
                 position: {koorX: 0, koorY: 0}
             }
         }
-        case 'inputStep': {
+        case 'changeStep': {
             switch(action.stepType){
                 case 'up':{
                     return{
                         ...player,
                         stepRemaining:{
                             ...player.stepRemaining,
-                            upStep: action.value
+                            upStep: action.num
                         }
                     }
                 }
@@ -75,7 +75,7 @@ export default function ManagePlayer(player, action){
                         ...player,
                         stepRemaining:{
                             ...player.stepRemaining,
-                            downStep: action.value
+                            rightStep: action.num
                         }
                     }
                 }
@@ -84,7 +84,7 @@ export default function ManagePlayer(player, action){
                         ...player,
                         stepRemaining:{
                             ...player.stepRemaining,
-                            downStep: action.value
+                            downStep: action.num
                         }
                     }
                 }
@@ -93,7 +93,7 @@ export default function ManagePlayer(player, action){
                         ...player,
                         stepRemaining:{
                             ...player.stepRemaining,
-                            leftStep: action.value
+                            leftStep: action.num
                         }
                     }
                 }
