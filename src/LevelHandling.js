@@ -49,19 +49,19 @@ export function ContextProvider({children, currentLevel, setCurrentLevel}){
             const nextPlace = {...player.position};
             if(direction === 'left'){
                 dx = -player.stepRange;
-                can = player.stepRemaining.leftStep !== 0;
+                can = player.stepRemaining.leftStep > 0;
             }
             if(direction === 'right'){
                 dx = player.stepRange;
-                can = player.stepRemaining.rightStep !== 0;
+                can = player.stepRemaining.rightStep > 0;
             }
             if(direction === 'up'){
                 dy = -player.stepRange;
-                can = player.stepRemaining.upStep !== 0;
+                can = player.stepRemaining.upStep > 0;
             }
             if(direction === 'down'){
                 dy = player.stepRange;
-                can = player.stepRemaining.downStep !== 0;
+                can = player.stepRemaining.downStep > 0;
             }
             nextPlace.koorX += dx;
             nextPlace.koorY += dy;

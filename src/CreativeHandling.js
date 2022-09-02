@@ -6,11 +6,11 @@ import { useReducer } from "react";
 export const useCreativeContext = () => useContext(CreativeContext);
 const CreativeContext = createContext(null);
 export function CreativeContextProvider({children, selectedBox, setSelectedBox}){
-    const [initialBody, setInitialBody]= useState({
+    const initialBody = {
         position:{koorX: 0, koorY: 0},
         stepRange: 1,
         stepRemaining: {leftStep: 0, rightStep: 0, upStep: 0, downStep: 0}
-    });
+    };
     const [gridSize, setGridSize] = useState(null);
     const [walls, setWalls] = useState([]);
     const [goal, setGoal] = useState({});
@@ -19,7 +19,7 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
     const [finished, setFinished] = useState(false);
     const [player, dispatch] = useReducer(
         ManagePlayer,
-        {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange}
+        {position: {...initialBody.position}, stepRemaining: {...initialBody.stepRemaining}, stepRange: initialBody.stepRange, initialBody:{...initialBody}}
     );
     function moveDirection(e){
         function isPossible({nextPlace, can}){
@@ -51,19 +51,19 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
             const nextPlace = {...player.position};
             if(direction === 'left'){
                 dx = -player.stepRange;
-                can = player.stepRemaining.leftStep !== 0;
+                can = player.stepRemaining.leftStep > 0;
             }
             if(direction === 'right'){
                 dx = player.stepRange;
-                can = player.stepRemaining.rightStep !== 0;
+                can = player.stepRemaining.rightStep > 0;
             }
             if(direction === 'up'){
                 dy = -player.stepRange;
-                can = player.stepRemaining.upStep !== 0;
+                can = player.stepRemaining.upStep > 0;
             }
             if(direction === 'down'){
                 dy = player.stepRange;
-                can = player.stepRemaining.downStep !== 0;
+                can = player.stepRemaining.downStep > 0;
             }
             nextPlace.koorX += dx;
             nextPlace.koorY += dy;
@@ -84,18 +84,13 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
     function handleClickClear(){
         setFinished(false);
         setGoal({});
-        setInitialBody({
-            position:{koorX: 0, koorY: 0},
-            stepRange: 1,
-            //remember to change to 0
-            stepRemaining: {leftStep: 5, rightStep: 5, upStep: 5, downStep: 5}
-        })
         setSuperJump([]);
         setSwitchClockwise([]);
         setWalls([]);
         dispatch({
-            type: 'deletePlayer'
+            type: 'clearPlayer'
         })
+
     }
     function handleClickReset(){
         dispatch({
@@ -105,7 +100,7 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
     }
 
     return(
-        <CreativeContext.Provider value={{initialBody, walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, moveDirection, handleClickReset, setGoal, setGridSize, setSuperJump, setSwitchClockwise, setWalls, setFinished, setInitialBody, selectedBox, setSelectedBox, handleClickClear}}>
+        <CreativeContext.Provider value={{walls, goal, gridSize, superJump, switchClockwise, finished, player, dispatch, moveDirection, handleClickReset, setGoal, setGridSize, setSuperJump, setSwitchClockwise, setWalls, setFinished, selectedBox, setSelectedBox, handleClickClear}}>
             {children}
         </CreativeContext.Provider>
     )

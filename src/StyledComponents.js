@@ -8,7 +8,7 @@ export const GameSpot = styled.div`
     gap: 2vw;
 `
 export const Button = styled.button`
-    height: 3vw;
+    height: 2.85vw;
 `
 export const RightSide = styled.div`
     display:flex;

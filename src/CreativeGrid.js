@@ -3,7 +3,7 @@ import { useCreativeContext } from './CreativeHandling';
 import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './StyledComponents';
 
 export default function CreativeGrid(){
-    const {gridSize, player, finished, selectedBox, dispatch, walls, goal, superJump, switchClockwise, setWalls, setGoal, setSuperJump, setSwitchClockwise, setInitialBody, initialBody} = useCreativeContext();
+    const {gridSize, player, finished, selectedBox, dispatch, walls, goal, superJump, switchClockwise, setWalls, setGoal, setSuperJump, setSwitchClockwise} = useCreativeContext();
     const [boxes, setBoxes] = useState([]);
     function handleChangeBox({koorX, koorY}){
         if(selectedBox === 'wall'){
@@ -13,17 +13,9 @@ export default function CreativeGrid(){
             setGoal({koorX, koorY});
         }
         if(selectedBox === 'player'){
-            setInitialBody({
-                ...initialBody,
-                position:{
-                    koorX,
-                    koorY
-                }
-            }); 
             dispatch({
                 type: 'spawnPlayer',
-                position: {koorX, koorY},
-                stepRemaining: {...initialBody.stepRemaining}
+                position: {koorX, koorY}
             });
         }
         if(selectedBox === 'superJump'){
@@ -36,10 +28,6 @@ export default function CreativeGrid(){
     function HandleDeleteBox({targetBox, koorX, koorY}){
         if(selectedBox === 'delete'){
             if(targetBox === 'player'){
-                setInitialBody({
-                    ...initialBody,
-                    position:{koorX: 0, koorY: 0}
-                });
                 dispatch({
                     type: 'deletePlayer'
                 })

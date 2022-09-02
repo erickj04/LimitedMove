@@ -9,7 +9,7 @@ export default function App() {
   const [selectedBox, setSelectedBox] = useState('empty');
   return (
     <div>
-        {creativeMode ?
+        {!creativeMode ?
           <ContextProvider currentLevel={currentLevel} setCurrentLevel={setCurrentLevel} creativeMode={creativeMode}>
             <Campaign creativeMode={creativeMode} setCreativeMode={setCreativeMode} currentLevel={currentLevel}/>
           </ContextProvider>

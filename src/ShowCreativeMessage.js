@@ -12,9 +12,8 @@ export default function ShowCreativeMessage(){
                     type: 'changeStep',
                     stepType: 'up',
                     num: e.target.value
-                })
+                }) 
             } />
-            
             <br/>
             {`(press d) right: `}
             <InputStep 

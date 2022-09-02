@@ -50,13 +50,32 @@ export default function ManagePlayer(player, action){
             return {
                 ...player,
                 position: {...action.position},
-                stepRemaining: {...action.stepRemaining}
+                stepRemaining: {...player.initialBody.stepRemaining},
+                initialBody: {
+                    ...player.initialBody,
+                    position: {...action.position}
+                }
             }
         }
         case 'deletePlayer': {
             return {
                 ...player,
-                position: {koorX: 0, koorY: 0}
+                position: {koorX: 0, koorY: 0},
+                initialBody:{
+                    ...player.initialBody,
+                    position:{koorX:0, koorY: 0}
+                }
+            }
+        }
+        case 'clearPlayer': {
+            return {
+                ...player,
+                position: {koorX: 0, koorY: 0},
+                stepRemaining: {upStep: 0, rightStep: 0, downStep: 0, leftStep: 0},
+                initialBody:{
+                    ...player.initialBody,
+                    position:{koorX:0, koorY: 0}
+                }
             }
         }
         case 'changeStep': {
@@ -67,6 +86,13 @@ export default function ManagePlayer(player, action){
                         stepRemaining:{
                             ...player.stepRemaining,
                             upStep: action.num
+                        },
+                        initialBody:{
+                            ...player.initialBody,
+                            stepRemaining:{
+                                ...player.initialBody.stepRemaining,
+                                upStep: action.num
+                            }
                         }
                     }
                 }
@@ -76,6 +102,13 @@ export default function ManagePlayer(player, action){
                         stepRemaining:{
                             ...player.stepRemaining,
                             rightStep: action.num
+                        },
+                        initialBody:{
+                            ...player.initialBody,
+                            stepRemaining:{
+                                ...player.initialBody.stepRemaining,
+                                rightStep: action.num
+                            }
                         }
                     }
                 }
@@ -85,6 +118,13 @@ export default function ManagePlayer(player, action){
                         stepRemaining:{
                             ...player.stepRemaining,
                             downStep: action.num
+                        },
+                        initialBody:{
+                            ...player.initialBody,
+                            stepRemaining:{
+                                ...player.initialBody.stepRemaining,
+                                downStep: action.num
+                            }
                         }
                     }
                 }
@@ -94,6 +134,13 @@ export default function ManagePlayer(player, action){
                         stepRemaining:{
                             ...player.stepRemaining,
                             leftStep: action.num
+                        },
+                        initialBody:{
+                            ...player.initialBody,
+                            stepRemaining:{
+                                ...player.initialBody.stepRemaining,
+                                leftStep: action.num
+                            }
                         }
                     }
                 }

@@ -5,7 +5,7 @@ import CreativeGrid from './CreativeGrid';
 import {GameSpot, Button, RightSide, InputSize} from './StyledComponents'; 
 import { useCreativeContext } from './CreativeHandling';
 export default function Creative({creativeMode, setCreativeMode}){
-  const {gridSize, setGridSize, finished, player, dispatch, selectedBox, setSelectedBox, moveDirection, setFinished, initialBody, handleClickClear} = useCreativeContext();
+  const {gridSize, setGridSize, finished, player, dispatch, selectedBox, setSelectedBox, moveDirection, setFinished, handleClickClear} = useCreativeContext();
   useEffect(() => {
     document.addEventListener('keydown', moveDirection);
     return () => {
@@ -22,8 +22,7 @@ export default function Creative({creativeMode, setCreativeMode}){
     setFinished(false);
     dispatch({
       type: 'spawnPlayer',
-      position: {...initialBody.position},
-      stepRemaining: {...initialBody.stepRemaining}
+      position: {...player.initialBody.position}
     });
   }
   return(
