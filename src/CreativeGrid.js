@@ -86,7 +86,7 @@ export default function CreativeGrid(){
                 nextId++;
             }
         }
-        if(finished)setBoxes([[{type: 'finished', id:0, koorX: 1, koorY: 1}]]);
+        if(finished)setBoxes([[{type: 'finished', id: 0, koorX: 1, koorY: 1}]]);
         else setBoxes(newBoxes);
     }, [player, gridSize, walls, goal, superJump, switchClockwise, finished]);
     return(

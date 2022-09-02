@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import ShowCreativeMessage from './ShowCreativeMessage.js';
-import ChooseBoxType from "./ChooseBoxType";
+import ChooseBoxContainer from "./ChooseBoxContainer";
 import CreativeGrid from './CreativeGrid';
-import {GameSpot, Button, RightSide, InputSize} from './StyledComponents'; 
+import {GameSpot, Button, RightSide, InputSize, InputGridSize} from './StyledComponents'; 
 import { useCreativeContext } from './CreativeHandling';
 export default function Creative({creativeMode, setCreativeMode}){
   const {gridSize, setGridSize, finished, player, dispatch, selectedBox, setSelectedBox, moveDirection, setFinished, handleClickClear} = useCreativeContext();
@@ -31,8 +31,11 @@ export default function Creative({creativeMode, setCreativeMode}){
         <GameSpot>
           <CreativeGrid gridSize={gridSize} player={player} finished={finished} selectedBox={selectedBox} dispatch={dispatch} />
           <RightSide>
-            <ChooseBoxType selectedBox={selectedBox} setSelectedBox={setSelectedBox}/>
-            <InputSize placeholder='Input Grid Size (MAX 30)' value={gridSize} onChange={(e) => handleInputGridSize(e)}/>
+            <ChooseBoxContainer selectedBox={selectedBox} setSelectedBox={setSelectedBox}/>
+            <InputGridSize>
+              {'Grid Size: '}
+              <InputSize placeholder='Input Grid Size (MAX 30)' value={gridSize} onChange={(e) => handleInputGridSize(e)}/>
+            </InputGridSize>
             <ShowCreativeMessage />
             <Button onClick={handleClickClear}>CLEAR</Button>
             <Button onClick={handleStartNewGame}>START NEW GAME</Button>

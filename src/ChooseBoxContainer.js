@@ -1,5 +1,5 @@
 import { WallButton, PlayerButton, GoalButton, ClockwiseButton, SuperJumpButton, DeleteButton, CreativeContainer} from './StyledComponents';
-export default function ChooseBoxType({selectedBox, setSelectedBox}){
+export default function ChooseBoxContainer({selectedBox, setSelectedBox}){
     function handleSelectedBox(type){
         setSelectedBox(type);
     }

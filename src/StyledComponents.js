@@ -175,7 +175,7 @@ export const CreativeContainer = styled.div`
     height: 18vw;
 `
 export const InputSize = styled.input`
-    width: 30vw;
+    width: 20vw;
     margin: 0.1vw 0;
 `
 export const InputStep = styled.input`
@@ -186,4 +186,10 @@ export const Title = styled.div`
     font-size: 1.5vw;
     font-weight: bold;
     margin: 0.2vw 0;
+`
+export const InputGridSize = styled.div`
+    display: flex;
+    gap: 1vw;
+    font-weight: bold;
+    font-size: 1.5vw;
 `

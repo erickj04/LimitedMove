@@ -9,7 +9,7 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
     const initialBody = {
         position:{koorX: 0, koorY: 0},
         stepRange: 1,
-        stepRemaining: {leftStep: 0, rightStep: 0, upStep: 0, downStep: 0}
+        stepRemaining: {leftStep: null, rightStep: null, upStep: null, downStep: null}
     };
     const [gridSize, setGridSize] = useState(null);
     const [walls, setWalls] = useState([]);
