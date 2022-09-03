@@ -1,6 +1,6 @@
-import WallIcon from './Wall.jpg';
-import ClockwiseIcon from './Clockwise.svg';
-import FinishPicture from './Finish.jpg';
+import WallIcon from './Icons/Wall.jpg';
+import ClockwiseIcon from './Icons/Clockwise.svg';
+import FinishPicture from './Icons/Finish.jpg';
 import styled, {css} from "styled-components";
 
 export const GameSpot = styled.div`

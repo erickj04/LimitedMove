@@ -2,8 +2,8 @@ export default function ManagePlayer(player, action){
     switch (action.type){
         case 'movePlayer': {
             const playerCopy = {...player};
-            const range = playerCopy.stepRange/2;
-            const reduce = 1/2;
+            const range = playerCopy.stepRange;
+            const reduce = 1;
             switch(action.direction){
                 case 'left': {
                     playerCopy.position.koorX -= range;
@@ -74,7 +74,8 @@ export default function ManagePlayer(player, action){
                 stepRemaining: {upStep: 0, rightStep: 0, downStep: 0, leftStep: 0},
                 initialBody:{
                     ...player.initialBody,
-                    position:{koorX:0, koorY: 0}
+                    position:{koorX:0, koorY: 0},
+                    stepRemaining: {upStep: 0, rightStep: 0, downStep: 0, leftStep: 0}
                 }
             }
         }

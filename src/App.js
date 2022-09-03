@@ -4,7 +4,7 @@ import Creative from './Creative';
 import {ContextProvider} from './LevelHandling';
 import { CreativeContextProvider } from './CreativeHandling';
 export default function App() {
-  const [creativeMode, setCreativeMode] = useState(false);
+  const [creativeMode, setCreativeMode] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(0);
   const [selectedBox, setSelectedBox] = useState('empty');
   return (
