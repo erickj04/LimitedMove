@@ -51,8 +51,10 @@ export default function ManagePlayer(player, action){
                 ...player,
                 position: {...action.position},
                 stepRemaining: {...player.initialBody.stepRemaining},
+                stepRange: 1,
                 initialBody: {
                     ...player.initialBody,
+                    stepRange: 1,
                     position: {...action.position}
                 }
             }
@@ -72,9 +74,11 @@ export default function ManagePlayer(player, action){
                 ...player,
                 position: {koorX: 0, koorY: 0},
                 stepRemaining: {upStep: 0, rightStep: 0, downStep: 0, leftStep: 0},
+                stepRange: 1,
                 initialBody:{
                     ...player.initialBody,
                     position:{koorX:0, koorY: 0},
+                    stepRange: 1,
                     stepRemaining: {upStep: 0, rightStep: 0, downStep: 0, leftStep: 0}
                 }
             }

@@ -90,7 +90,6 @@ export function CreativeContextProvider({children, selectedBox, setSelectedBox})
         dispatch({
             type: 'clearPlayer'
         })
-
     }
     function handleClickReset(){
         dispatch({

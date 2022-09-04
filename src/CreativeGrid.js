@@ -52,7 +52,7 @@ export default function CreativeGrid(){
         else if(type === 'wall')return(<WallBox onClick = {() => HandleDeleteBox({targetBox: 'wall', koorX, koorY})} key={id} />);
         else if(type === 'goal')return(<GoalBox onClick = {() => HandleDeleteBox({targetBox: 'goal', koorX, koorY})} gridSize={gridSize} key={id}>Goal</GoalBox>);
         else if(type === 'superJump')return(<SuperJumpBox onClick = {() => HandleDeleteBox({targetBox: 'superJump', koorX, koorY})} gridSize={gridSize} key={id}>2X</SuperJumpBox>);
-        else if(type === 'switchClockwise')return(<ClockwiseBox gridSize={gridSize} key={id}></ClockwiseBox>);
+        else if(type === 'switchClockwise')return(<ClockwiseBox onClick = {() => HandleDeleteBox({targetBox: 'clockwise', koorX, koorY})} gridSize={gridSize} key={id}></ClockwiseBox>);
         else  return(<EmptyBox onClick={() => handleChangeBox({koorX, koorY})} key={id} />)
     }
     //too inefficient to move players
