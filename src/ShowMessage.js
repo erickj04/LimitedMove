@@ -1,3 +1,4 @@
+import React from 'react';
 import { useContextGame } from './LevelHandling';
 export default function ShowMessage(){
     const {player} = useContextGame();

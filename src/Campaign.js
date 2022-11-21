@@ -1,5 +1,5 @@
 import Grid from "./Grid";
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ShowMessage from './ShowMessage.js';
 import { useContextGame} from "./LevelHandling";
 import {GameSpot, Button, RightSide, Title} from './StyledComponents';

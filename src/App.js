@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Campaign from "./Campaign";
 import Creative from './Creative';
-import {ContextProvider} from './LevelHandling';
+import { ContextProvider } from './LevelHandling';
 import { CreativeContextProvider } from './CreativeHandling';
+import MessageForm from './MessageFormComponent';
 export default function App() {
   const [creativeMode, setCreativeMode] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(0);
@@ -18,6 +19,7 @@ export default function App() {
             <Creative creativeMode={creativeMode} setCreativeMode={setCreativeMode} />
           </CreativeContextProvider>
         }
+        <MessageForm />
     </div>
   );
 }

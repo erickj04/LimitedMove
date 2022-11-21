@@ -1,4 +1,5 @@
 import { WallButton, PlayerButton, GoalButton, ClockwiseButton, SuperJumpButton, DeleteButton, CreativeContainer} from './StyledComponents';
+import React from 'react';
 export default function ChooseBoxContainer({selectedBox, setSelectedBox}){
     function handleSelectedBox(type){
         setSelectedBox(type);

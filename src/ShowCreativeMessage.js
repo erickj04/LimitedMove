@@ -1,4 +1,5 @@
 import { useCreativeContext } from './CreativeHandling';
+import React from 'react'
 import { InputStep, Title } from './StyledComponents';
 export default function ShowCreativeMessage(){
     const {player, dispatch} = useCreativeContext();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCreativeContext } from './CreativeHandling';
 import { Container, Baris, PlayerBox, WallBox, GoalBox, SuperJumpBox, ClockwiseBox, FinishBox, EmptyBox} from './StyledComponents';
 
@@ -40,7 +40,7 @@ export default function CreativeGrid(){
             }
             if(targetBox === 'superJump'){
                 setSuperJump(superJump.filter(sp => sp.koorX !== koorX || sp.koorY !== koorY))
-            }
+            }   
             if(targetBox === 'clockwise'){
                 setSwitchClockwise(switchClockwise.filter(clockwise => clockwise.koorX !== koorX || clockwise.koorY !== koorY))
             }
