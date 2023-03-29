@@ -3,11 +3,16 @@ A personal 2D puzzle game where you can create your own level in creative mode o
 React.js. The player will use their logical thinking to strategize a way to finish the puzzle.
 
 The game will have 5 special boxes:
-- Player : ![Player](src/Player.png)
-- Goal : ![Goal](src/Goal.png)
-- Wall : ![Wall](src/Wall.png)
-- ClockWise : ![clockWise](src/Clockwise.png)
-- 2X : ![timesTwo](src/timesTwo.png)
+- Player :
+ ![Player](src/Player.png)
+- Goal : 
+![Goal](src/Goal.png)
+- Wall : 
+![Wall](src/Wall.png)
+- ClockWise : 
+![clockWise](src/Clockwise.png)
+- 2X : 
+![timesTwo](src/timesTwo.png)
 
 The puzzle have 2 campaign level.
 
