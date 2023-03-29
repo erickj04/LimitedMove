@@ -14,7 +14,7 @@ The game will have 5 special boxes:
 - 2X : 
 ![timesTwo](src/timesTwo.png)
 
-The puzzle have 2 campaign level.
+The puzzle have 3 campaign level.
 
 ![Campaign_Mode](src/CampaignMode.png)
 
