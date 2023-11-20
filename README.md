@@ -58,6 +58,6 @@ npm run dev
 yarn dev
 ```
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-- This project is inspired from [@Memodol]([https://github.com/WebDevSimplified](https://memodol.itch.io/controlnotincluded))
+- This project is inspired from [@Memodol](https://memodol.itch.io/controlnotincluded)
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
